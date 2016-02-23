@@ -1,0 +1,90 @@
+## 20151205
+compile android-x86-64
+
+cd /media/chyyuu/dand
+. ./dandchysetenv.sh
+cd android-x86
+. ./build/core/envsetup.sh
+lunch 选择android-x86_64-eng 
+make -j16
+在编译 /media/chyyuu/dand/andriod-x86/system/core/libpixelflinger/tests/codegen
+出错 找不到 enc_wrapper.h 但其实是有的
+
+解决方法： 修改 Android.mk,让它增加对TARGET_ARCH x86_64的支持
+OLD
+====
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+
+ifeq ($(TARGET_ARCH),x86)
+LOCAL_SRC_FILES:= \
+    codegen.cpp
+else
+LOCAL_SRC_FILES:= \
+    codegen.cpp.arm
+endif
+
+LOCAL_SHARED_LIBRARIES := \
+	libcutils \
+    libpixelflinger
+
+LOCAL_C_INCLUDES := \
+	system/core/libpixelflinger
+
+ifeq ($(TARGET_ARCH),x86)
+LOCAL_STATIC_LIBRARIES := libenc
+endif
+
+LOCAL_MODULE:= test-opengl-codegen
+
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_NATIVE_TEST)
+
+NEW
+====
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+
+ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),x86 x86_64))
+LOCAL_SRC_FILES:= \
+    codegen.cpp
+else
+LOCAL_SRC_FILES:= \
+    codegen.cpp.arm
+endif
+
+LOCAL_SHARED_LIBRARIES := \
+	libcutils \
+    libpixelflinger
+
+LOCAL_C_INCLUDES := \
+	system/core/libpixelflinger
+
+
+ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),x86 x86_64))
+LOCAL_STATIC_LIBRARIES := libenc
+endif
+
+LOCAL_MODULE:= test-opengl-codegen
+
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_NATIVE_TEST)
+
+## 20151206
+compile android-x86-64-eng
+
+package app/Settings 编译出错
+
+修改文件 packages/apps/Settings/src/com/android/settings/DeviceInfoSettings.java
+
+L169
+string patch = Build.VERSION.SECURITY_PATCH;
+改为
+string patch = KEY_SECURITY_PATCH;
+
+即可
+
+忘了最后是 make iso_img OR efi_img -j16, 而用了 make -j16 导致出现 system.img过大的错误。
+

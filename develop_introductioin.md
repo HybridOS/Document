@@ -1,0 +1,1 @@
+* To work with the Android code, you will need to use both Git and Repo. 

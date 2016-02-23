@@ -1,0 +1,56 @@
+
+＃　download
+git clone https://github.com/pstglia/linux.git
+
+# checkout 目前得到的最新kernel
+git checkout android-x86_4.4_r3_fork
+
+# compile
+make ARCH=x86_64 android-x86_64_defconfig
+make -j16
+
+碰到问题
+1. 编译 drivers/gpio/gpio-valleyview2.c　出错
+解决方法：
+#include <gpiolib.h>
+修改为
+//#include <gpiolib.h>
+#include "gpiolib.h"
+
+2. drivers/net/wireless/wl/　无Makefile
+```
+config WL
+        tristate "Broadcom 802.11a/b/g/n hybrid device driver"
+```
+解决方法：
+make menuconfig
+去掉 driver/ent/wireless/wl/对应的config 
+
+# CONFIG_WL is not set
+
+# run
+qemu-system-x86_64 -kernel arch/x86_64/boot/bzImage -append "root=/dev/ram rdinit=/sbin/init console=ttyS0" -serial stdio
+
+可以看到输出了，但在启动init　ramdisk时出错
+
+＃ add ramdisk
+在kernel目录下执行
+mkinitramfs -o initrd.img
+qemu-system-x86_64 -kernel arch/x86_64/boot/bzImage -append "root=/dev/ram rdinit=/sbin/init console=ttyS0" -serial stdio -initrd initrd.img -serial stdio
+
+这样就可以进入shell了。
+
+hwz method
+==============
+ I was trying to run Android_x86 4.4 rc-3 images with qemu-kvm. However, I always get black screen using "-vga std" option. If I change the "-vga" option to "cirrus" or "spice", everything works fine. I tried both Qemu 2.3 and 2.4, neither of them works. I have a project base on Qemu "-vga std" driver, I need to manage "-vga std" to work. What can I do to resolve the problem? 
+ 
+qemu-kvm -sdl -m 2048 -vga std -soundhw ac97 -net nic,model=e1000 -net user \ 
+        -hda $HOME/qemu/android.img \ 
+        -boot menu=on \ 
+        -cdrom android_x86.iso 
+        
+
+在android-x86中编译某模块，且显示详细编译信息的方法,比如kernel
+
+cd android-repo
+mm kernel showcommands -j4

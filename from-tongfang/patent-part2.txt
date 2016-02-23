@@ -1,0 +1,1263 @@
+  
+附件2 
+ 
+ 
+ 
+  
+Patent Number 
+专利编号 
+Application Title  
+应用程序名 
+“SEPs” Generally Implemented by Smartphones - 智能手机中广泛实施的“SEPs" 
+ 
+ 
+ 
+1 
+5634192 
+Mobile-Assisted Handoff Technique 
+移动辅助切换技术 
+2 
+5982324 
+Combining GPS With TOA/TD0A Of Cellular Signals To Locate Terminal 
+结合GPS与蜂窝信号的TOA/TDOA的终端定位 
+3 
+6058309 
+Network Directed System Selection for Cellular and Pcs Enhanced Roaming 
+用于增强蜂窝以及PCS漫游的网络主导的系统选择 
+4 
+6088578 
+Burst Request Method and Apparatus for Cdma High Speed Data 
+CDMA高速数据突发请求方法及设备 
+5 
+6091952 
+Distributed Subscriber Data Management in Wireless Networks from a Central Perspective 
+在无线网络中从中央角度的分布式用户数据管理 
+6 
+6223028 
+Enhanced Method And System For Programming A Mobile Telephone over the Air Within A Mobile Telephone Communication Network 
+在移动通讯网络中通过无线对手机编程的增强方式和系统 
+7 
+6298461 
+Encoding and Decoding Methods and Apparatus 
+编码和解码的方式和系统 
+8 
+6324515 
+Method and Apparatus for Asymmetric Communication of Compressed Speech 
+压缩语音的非对称通信的方法和设备 
+9 
+6363251 
+Network Directed System Selection for Cellular and Pcs Enhanced Roaming 
+用于增强蜂窝以及PCS漫游的网络主导的系统选择 
+10 
+6411629 
+Data Interleaving Method 
+数据交织方法 
+11 
+6430174 
+Communication System Supporting Simultaneous Voice and Multimedia Communications and Method of Operation Therefore 
+支持同时进行语音和多媒体传播的通信系统及其运作方式 
+12 
+6438369 
+Network Directed System Selection for Cellular and Pcs Enhanced Roaming 
+用于增强蜂窝以及PCS漫游的网络主导的系统选择 
+13 
+6549771 
+Enhanced Method And System For Programming A Mobile Telephone over the Air Within A Mobile Telephone Communication Network 
+在移动通讯网络中通过无线对手机编程的增强方式和系统 
+14 
+6628641 
+Header Error Detection For Wireless Data Cells 
+无线数据单元的标头错误检测 
+15 
+6738618 
+Method and System for Regulating Autonomous Messaging by Subscriber Units in a Wireless Communication Network 
+在无线通信网络中调节用户自主消息的方法和系统 
+16 
+6880088 
+Secure Maintenance Messaging In a Digital Communications Network 
+数字通信网络中的安全维护消息 
+17 
+6947483 
+Method, Apparatus, and System for Managing Data Compression in a Wireless Network 
+无线网络中数据压缩管理的方法，设备和系统 
+18 
+6947490 
+Cellular Radio Communications System 
+蜂窝无线电通信系统 
+19 
+7042858 
+Soft Handoff for OFDM 
+OFDM的软切换 
+20 
+7072336 
+Communications Using Adaptive Multi-Rate Codecs 
+使用自适应多速率编解码器的通信 
+21 
+7082114 
+System and Method for a Wireless Unit Acquiring a New Internet Protocol Address When Roaming Between Two Subnets 
+在两个子网之间漫游时无线单元获取一个新互联网协议地址的方法和系统 
+22 
+7145889 
+Efficient Frame Retransmission in a Wireless Communication Environment 
+无线通信环境中高效的帧重传播 
+23 
+7228133 
+Mobile IP Mobile Node Device and Access Information 
+移动IP的移动节点的设备和接入信息 
+24 
+7317680 
+Channel Mapping for OFDM 
+OFDM的信道映射 
+25 
+7436834 
+Efficient Frame Retransmission in a Wireless Communication Environment 
+无线通信环境中高效的帧重传播 
+26 
+7440433 
+Mobile IP Notification 
+移动IP通知 
+27 
+7486735 
+Sub-Carrier Allocation For OFDM 
+OFDM的子载波分配 
+28 
+7545766 
+Method for Mobile Node-foreign Agent Challenge Optimization 
+移动节点外地代理优化鉴权 
+29 
+7646710 
+Mobility in a Multi-Access Communication Network 
+多路接入通信网络的移动性 
+30 
+8046000 
+Providing Location-Based Information in Local Wireless Zones 
+在本地无线区域提供基于位置的信息 
+31 
+8264996 
+Signalling Channel and Radio System for Power Saving in Wireless Devices 
+用于无线设备节能的信号通道及无线电系统 
+32 
+6298463 
+Parallel Concatenated Convolutional Coding 
+并行级联卷积编码 
+33 
+6782422 
+Systems and Methods for Resynchronization and Notification i n Response to Network Media Events 
+响应网络媒体事件的重新同步和通知的方法和系统 
+34 
+7016705 
+Reducing Power Consumption in a Networked Battery-Operated Device Using Sensors 
+在使用传感器的联网电池操作设备中减少电源消耗 
+35 
+7089415 
+Authentication Methods and Systems for Accessing Networks, A uthentication Methods and Systems for Accessing the Internet 
+访问网络的认证方法和系统 
+36 
+7099689 
+Energy-Aware Communications for a Multi-Radio System 
+多重无线电系统中具有能量感知的通信 
+37 
+7110783 
+Power Efficient Channel Scheduling in a Wireles Network 
+无线网络中的有效节能信道调度 
+38 
+7142855 
+Power Efficient Channel Scheduling in a Wireles Network 
+无线网络中的有效节能信道调度 
+39 
+7187660 
+System and Method for Continuously Provisioning a Mobile Device 
+持续配置移动设备的系统和方法 
+40 
+7203463 
+Power Efficient Channel Scheduling in a Wireles Network 
+无线网络中的有效节能信道调度 
+41 
+7209740 
+Power Efficient Channel Scheduling in a Wireles Network 
+无线网络中的有效节能信道调度 
+42 
+7230933 
+Reducing Idle Power Consumption in a Networked Battery Operated Device 
+减少联网的电池供电设备空载状态下的功率消耗 
+43 
+7245936 
+Power Efficient Channel Scheduling in a Wireles Network 
+无线网络中的有效节能信道调度 
+44 
+7284062 
+Increasing The Level of Automation When Provisioning A Computer System to Access A Network 
+当将电脑系统配置接入网络时提高自动化等级 
+45 
+7295522 
+System and Method for Continuously Provisioning a Mobile Dev ice 
+持续配置移动设备的系统和方法 
+46 
+7376122 
+System and Method for Link Quality Source Routing 
+基于链路质量源路由的系统和方法 
+47 
+7433936 
+Connectivity Objects Under A Mobile Device Management Tree 
+移动设备管理树下的联通性对象 
+48 
+7505756 
+Dynamic Online Subscription for Wireless Wide-Area Networks 
+无线广域网的动态在线订阅 
+49 
+7529197 
+System and Method for Continuously Provisioning a Mobile Dev ice 
+持续配置移动设备的系统和方法 
+50 
+7539508 
+Reducing Idle Power Consumption in a Networked Battery Operated Device 
+减少联网的电池供电设备空载状态下的功率消耗 
+51 
+7577125 
+Direct Wireless Client to Client Communication 
+客户间的直接无线通信 
+52 
+7613426 
+Proximity Service Discovery in Wireless Networks 
+无线网络中的近邻服务发现 
+53 
+7673325 
+Configuration Of Wifi Network Parameters 
+Wifi网络参数的配置 
+54 
+7743408 
+Secure Association And Management Frame Verification 
+安全联合与管理帧的验证 
+55 
+7969954 
+Direct Wireless Client to Client Communication 
+客户间的直接无线通信 
+56 
+8270965 
+SIGNALING OVER CELLULAR NETWORKS TO REDUCE THE WI-FI ENERGY CONSUMPTION OF MOBILE DEVICES 
+减少移动设备WI-FI能源消耗的蜂窝网络信号 
+57 
+8358975 
+SIGNALING OVER CELLULAR NETWORKS TO REDUCE THE WI-FI ENERGY CONSUMPTION OF MOBILE DEVICES 
+减少移动设备WI-FI能源消耗的蜂窝网络信号 
+58 
+8478300 
+Proximity Service Discovery in Wireless Networks 
+无线网络中的近邻服务发现 
+59 
+8559350 
+Mechanism To Convey Discovery Information In A Wireless Network 
+无线网络中传送发现信息的机制 
+60 
+6563953 
+Predictive Image Compression Using a Single Variable Length Code for both the Luminance and Chrominance Blocks for Each Macroblock 
+针对每个宏块的亮度区块和色度区块两者运用单变量长度编码的预测性图片压缩 
+61 
+6735345 
+Efficient Macroblock Header Coding for Video Compression 
+用于视频压缩的有效宏块标头编码 
+62 
+6912584 
+Media Coding for Loss Recovery with Remotely Predicted Data Units 
+使用远程预测数据单位的用于损失恢复的媒体编码 
+63 
+7120197 
+Motion Compensation Loop With Filtering 
+使用过滤的运动补偿回路 
+64 
+7149247 
+Methods and Systems for Encoding and Decoding Video Data to Enable Random Access and Splicing 
+编码和解码视频数据以及支持随机访问和拼接的方法和系统 
+65 
+7162091 
+Intra Compression of Pixel Blocks Using Predicted Mean 
+使用预测方法对像素块的内部压缩 
+66 
+7181072 
+Intra Compression of Pixel Blocks Using Predicted Mean 
+使用预测方法对像素块的内部压缩 
+67 
+7263232 
+Spatial Extrapolation Of Pixel Values For Intraframe Video Coding And Decoding 
+用于帧内视频编码和解码的像素值的空间外插法 
+68 
+7289673 
+Predictive Image Compression Using a Single Variable Length Code for both the Luminance and Chrominance Blocks for Each Macroblock 
+针对每个宏块的亮度区块和色度区块两者运用单变量长度编码的预测性图片压缩 
+69 
+7505485 
+Methods and Systems for Start Code Emulation Prevention and Data Stuffing 
+启动代码仿真预防和数据填充的方法和系统 
+70 
+7577305 
+Spatial Extrapolation Of Pixel Values For Intraframe Video Coding And Decoding 
+用于帧内视频编码和解码的像素值的空间外插法 
+71 
+7593466 
+Generalized Reference Decoder for Image or Video Processing 
+用于图片或视频处理的通用化的参考解码器 
+72 
+7646816 
+Generalized Reference Decoder for Image or Video Processing 
+用于图片或视频处理的通用化的参考解码器 
+73 
+7839895 
+Methods and Systems for Start Code Emulation Prevention and Data Stuffing 
+启动代码仿真预防和数据填充的方法和系统 
+“Patents” Implemented in “Android” - "安卓“中实施的“专利” 
+ 
+ 
+ 
+74 
+6604144 
+Data Format for Multimedia Object Storage, Retrieval and Transfer 
+用于多媒体对象储存、检索及传输的数据格式 
+75 
+6269403 
+Browser and Publisher for Multimedia Object Storage, Retrieval and Transfer 
+用于多媒体对象存储、检索及传输的浏览器和发行器 
+76 
+5778372 
+Remote Retrieval and Display Management of Electronic Document with Incorporated Images 
+远程获取和显示含画面的文本 
+77 
+6785865 
+Organizing Document Hyperlinks on a List Based on Their Respective Location in a Document 
+基于列表上的文档超链接位于文档内的位置规划文档超链接 
+78 
+6339780 
+Loading Status in a Hypermedia Browser Having a Limited Available Display Area 
+浏览器加载状态表示 
+79 
+6822664 
+Browser Navigation for Devices With a Limited Input System 
+浏览器导航设备输入系统 
+80 
+7454718 
+Browser Navigation for Devices With a Limited Input System 
+浏览器导航设备输入系统 
+81 
+7421666 
+Browser Navigation for Devices With a Limited Input System 
+浏览器导航设备输入系统 
+82 
+7596760 
+System and Method for Selecting a Tab Within a Tabbed Browser 
+在选项卡式浏览器中选择选项卡的系统和方法 
+83 
+7831547 
+Searching and Browsing URLs and URL History 
+搜索和浏览URL和URL历史 
+84 
+8166390 
+Figure Sizing And Positioning On Dynamic Pages 
+动态页面上的图片大小改变和定位 
+85 
+6240360 
+Computer System for Identifying Local Resources 
+识别本地资源的计算机系统 
+86 
+6891551 
+Selection Handles in Editing Electronic Documents 
+编辑电子文档时的选定手柄 
+87 
+6909910 
+Method and System for Managing Changes to a Contact Database 
+通讯录更新功能 
+88 
+5813013 
+Representing Recurring Events 
+表现复现事件 
+89 
+6073137 
+Improved Method for Updating and Displaying the Hierarchy of a Data Store 
+用于更新和显示数据储存的层级的改进方法 
+90 
+7191159 
+Transmitting Information Given Constrained Resources 
+在给予受限的资源下传输信息 
+91 
+7024214 
+Synchronizing Over a Number of Synchronization Mechanisms Using Flexible Rules 
+同步信道选择方法 
+92 
+7493130 
+Synchronization Over a Number of Synchronization Mechanisms Using Flexible Rules 
+同步信道选择方法 
+93 
+7499942 
+Modeling Recurring Events In A Data Store 
+在数据存储中建模复现事件 
+94 
+6356956 
+Time-triggered portable data objects 
+时间触发的便携式数据对象 
+95 
+7685116 
+Transparent Search Query Processing 
+透明的搜索查询处理 
+96 
+7050408 
+Communicating Multi-Part Messages Between Cellular Devices Using a Standardized Interface  
+使用标准化接口在移动设备间进行多部分信息传送 
+97 
+7689649 
+Rendering destination instant messaging personalization items before communicating with destination  
+在与目的地通信之前提供目的地即时消息收发个性化项目 
+98 
+5982298 
+Interactive Traffic Display and Trip Planner  
+交互式交通状况显示和路线规划器 
+99 
+5864337 
+Method for Automatically Associating Multimedia Features with Map Views Displayed by a Computer-Implemented Atlas Program  
+自动地将多媒体特性与计算机实现的地图程序所显示的地图视图相关联的方法 
+100 
+6065003 
+A System and Method for Finding the Closest Match of a Data Entry  
+发现数据条目的最接近匹配的系统和方法 
+101 
+6968179 
+Place-Specific Buddy List Services  
+特定于位置的好友列表服务 
+102 
+7668537 
+Place-Specific Buddy List Services  
+特定于位置的好友列表服务 
+103 
+7213048 
+Context Aware Computing Devices and Methods  
+上下文感知的计算设备和方法 
+104 
+7490003 
+System and Method for Providing a Location Snapshot Service and Associating a Snapshot With Location Container Data  
+提供位置快照服务并将快照与位置容器数据相关联的系统和方法 
+105 
+7650431 
+SERVING LOCALLY RELEVANT ADVERTISEMENTS  
+提供本地相关广告服务 
+106 
+7840032 
+Street Side Maps And Paths  
+街景地图和路径 
+107 
+7777648 
+MODE INFORMATION DISPLAYED IN A MAPPING APPLICATION  
+在地图应用中显示的模式信息 
+108 
+8255379 
+CUSTOM LOCAL SEARCH  
+自定义本地搜索 
+109 
+8214759 
+Taskbar music player  
+任务栏音乐播放器 
+110 
+7337389 
+System and Method for Annotating an Electronic Document Independently of its Content  
+对电子文档进行独立于其内容的注释的系统和方法 
+111 
+6799047 
+Locating and Tracking a User in a Wireless Network Through Environmentally Profiled Data  
+通过环境分析数据在无线网络中定位和追踪用户 
+112 
+7162466 
+System and Method for Filtering and Organizing Items Based on Common Elements  
+根据共同因素来过滤和规划项目的系统和方法 
+113 
+7519900 
+System And Method For Processing Digital Annotations  
+处理数字注释的系统和方法 
+114 
+7868786 
+Parsing Location Histories  
+解析位置历史信息 
+115 
+8239783 
+Integrated Viewfinder and Digital Media  
+集成取景器和数字媒体 
+116 
+7707197 
+System and method for filtering and organizing items based on common elements  
+根据共同因素来过滤和管理规划项目的系统和方法 
+117 
+5845077 
+A Method and System for Identifying and Obtaining Computer Software From a Remote Computer 
+从远程计算机识别和获得计算机软件的方法和系统 
+118 
+6957233 
+Method and apparatus for capturing and rendering annotations for non-modifiable electronic content 
+通过显示书签等方式在阅读电子书时进行注释标注、管理的方法 
+119 
+6901559 
+Method and Apparatus for Providing Recent Categories on a Hand-Held Device 
+在手持设备上提供最近分类的方法和装置 
+120 
+7072461 
+Merging Various Request Methods Into a Single Unified User Interface 
+将多种请求方法融合成为单个统一的用户界面 
+121 
+7873356 
+Search Interface For Mobile Devices 
+移动设备的搜索界面 
+122 
+8320549 
+ADVANCED CALL ROUTING USING LINKED IDENTITIES 
+采用关联身份的高级呼叫路由 
+123 
+6226367 
+Calling Line Identification with Location Icon 
+使用位置图标的呼叫线路识别 
+124 
+6526129 
+System and Method for Communication Media Management 
+用于通讯媒体管理的系统和方法 
+125 
+5517257 
+Video Control User Interface for Interactive Television Systems and Method For Controlling Display of a Video Movie 
+一种交互式电视系统的视频控制用户界面和用于控制视频电影显示的方法 
+126 
+5648824 
+Video Control User Interface for Controlling Display of a Video 
+控制视频显示的视频控制用户界面 
+127 
+5677708 
+System for displaying a list on a display screen  
+用于在显示屏幕上显示列表的系统 
+128 
+6868551 
+Interactive Program Summary Panel 
+交互式程序概要面板 
+129 
+6449766 
+System and Method for Consolidating Television Rating System 
+加强电视评级系统的系统和方法 
+130 
+7200611 
+TV Program Database 
+电视节目数据库 
+131 
+7202893 
+Method and Apparatus for the Display of Still Images from Image Files 
+显示图像文件中的静止图像的方法和装置 
+132 
+7159188 
+System and Method for Navigating Content in an Item 
+浏览某项内容的系统和方法 
+133 
+7427941 
+State-Sensitive Navigation Aid 
+状态敏感的导航浏览帮助 
+134 
+7583220 
+State-Sensitive Navigation Aid 
+状态敏感的导航浏览帮助 
+135 
+7671782 
+State-Sensitive Navigation Aid 
+状态敏感的导航浏览帮助 
+136 
+6578054 
+Network System For Synchronizing Resource Stored in the Server Based on the Resource State Information Transmitted from the Client 
+基于来自客户的资源状态信息同步存储于服务器内资源的网络系统 
+137 
+6370566 
+Generating Meeting Requests and Group Scheduling from a Mobile Device 
+在移动设备上发起会议请求和组织调度 
+138 
+7133909 
+Systems and Methods for Locating Mobile Computer Users in a Wireless Network 
+在无线网络中定位移动计算机用户的系统和方法 
+139 
+7590720 
+Systems and Methods for Locating Geographical Regions of Mobile Computer Users 
+定位移动计算机用户的地理区域的系统和方法 
+140 
+7558851 
+Locating a Mobile Computing Unit 
+移动计算设备的定位 
+141 
+5982324 
+Combining GPS With TOA/TD0A Of Cellular Signals To Locate Terminal 
+结合GPS与蜂窝信号的TOA/TDOA的终端定位 
+142 
+6209011 
+Handheld Computing Device with External Notification System 
+带有外置通知系统的手持计算设备 
+143 
+6374277 
+Handheld Computing Device With External Notification System 
+带有外置通知系统的手持计算设备 
+144 
+7644376 
+Flexible architecture for notifying applications of state changes 
+通知应用程序状态变更体系 
+145 
+6374276 
+Handheld computing device with external notification system 
+外置通知系统 
+146 
+6321275 
+Interpreted Remote Procedure Calls 
+解译的远程程序调用 
+147 
+6748481 
+Streaming Information Appliance with Buffer for Time Shifting 
+用于时间位移的带有缓冲器的流媒体信息装置 
+148 
+7039801 
+System and Method for Integrating Secure and Non-Secure Software Objects 
+集成安全与非安全软件对象的系统和方法 
+149 
+7650493 
+System and Method for Integrating Secure and Non-Secure Software Objects 
+集成安全与非安全软件对象的系统和方法 
+150 
+7356836 
+User Controls For A Computer 
+计算机的用户控制 
+151 
+7369850 
+Connectivity Notification Displaying Path to Connection 
+显示连接路径的连通性通知 
+152 
+8155624 
+Automatic Wireless Device Message Management Responsive To End User Preferences 
+回应终端用户偏好的自动无线设备信息管理 
+153 
+7865924 
+Providing Input and Output for a Mobile Device 
+为移动设备提供输入和输出 
+154 
+6360364 
+System and method for installing an application on a portable computer 
+在便携式计算机上安装应用的系统和方法 
+155 
+6094679 
+Distribution of Software in a Computer Network Environment 
+在计算机网络环境中的软件分发 
+156 
+6252589 
+Multilingual User Interface For An Operating System 
+操作系统的多语言用户界面 
+157 
+6826762 
+Radio Interface Layer in a Cell Phone with a Set of APIs Having a Hardware-Independent Proxy Layer and a Hardware-Specific Driver Layer 
+手机基带处理器 
+158 
+6819315 
+Soft input panel system and method 
+软键盘输入法 
+159 
+7411582 
+Soft input panel system and method 
+软键盘输入法 
+160 
+5889522 
+System Provided Child Window Controls 
+子窗口控制系统 
+161 
+5673401 
+System & Methods for a Customizable Sprite-Based Graphical User Interface 
+可定制的基于子图形的图形用户界面的系统和方法 
+162 
+5877765 
+Method and System for Displaying Internet Shortcut Icons on the Desktop 
+在桌面上显示因特网快捷方式图标的方法和系统 
+163 
+6091409 
+Method and System for Providing Internet Shortcut Icons on the Desktop 
+在桌面上提供因特网快捷方式图标的方法和系统 
+164 
+6421694 
+System and Method for Displaying Data Items in a Ticker Display Pane on a Client Computer 
+在客户端计算机上的断续装置显示窗格中显示数据项的系统和方法 
+165 
+7533352 
+Method And Apparatus For Providing Context Menus On A Hand Held Device 
+在手持设备上提供上下文菜单的方法和装置 
+166 
+6594682 
+Client-Side System for Scheduling Delivery of Web Content and Locally Managing the Web Content 
+用于Web内容的传递调度和本地Web内容管理的客户端系统 
+167 
+6654733 
+Fuzzy Keyboard 
+模糊键盘 
+168 
+8230359 
+System And Method That Facilitates Computer Desktop Use Via Scaling Of Displayed Objects With Shifts To The Periphery 
+通过转移到周边的缩放显示对象来便于计算机桌面使用的系统和方法 
+169 
+7221331 
+Method and System for Auxiliary Display of Information for a Computing Device 
+用于计算设备的辅助信息显示的方法和系统 
+170 
+7554529 
+Smart Soft Keyboard 
+智能软键盘 
+171 
+7692629 
+Operating Touch Screen Interfaces 
+触摸屏界面的操作 
+172 
+6897853 
+High-level Active Pen Matrix 
+触摸屏区分指令 
+173 
+6791536 
+Simulating Gestures of a Pointing Device Using a Stylus and Providing Feedback Thereto 
+触控笔输入方法 
+174 
+7441204 
+Method and system for automatically displaying content of a window on a display that has changed orientation 
+在改变过方向的显示器上自动显示窗口中的内容的方法和系统 
+175 
+RE40989 
+Atomic Operations on Data Structures 
+对数据结构的原子操作 
+176 
+7383460 
+Method And System For Configuring A Timer 
+定时器配置方法和系统 
+177 
+6621746 
+Monitoring Entropic Conditions of a Flash Memory Device as an Indicator for Invoking Erasure Operations 
+闪存卡删除运算法则 
+178 
+5652913 
+System For Providing Intercommunication Of I/O Access Factors Stored In A Shared Data Structure, Accessed And Maintained By Both File System And Device Driver 
+提供在共享数据结构中存储的、由文件系统和设备驱动程序两者访问和维护的I/O接入因素的交互通信的系统 
+179 
+6832273 
+System and Method to Specify Extended Configuration Descriptor Information in USB Devices 
+用于指定USB设备中扩展的配置描述符信息的系统和方法 
+180 
+7093031 
+System and Method to Specify Extended Configuration Descriptor Information in USB Devices 
+用于指定USB设备中扩展的配置描述符信息的系统和方法 
+181 
+7137117 
+Dynamically Variable Idle Time Thread Scheduling 
+动态可变的空闲时间线程调度 
+182 
+5784628 
+Controlling power consumption in a computer system 
+控制计算机系统中的能量消耗 
+183 
+6735345 
+Efficient Macroblock Header Coding for Video Compression 
+用于视频压缩的有效宏块标头编码 
+184 
+7289673 
+Predictive Image Compression Using a Single Variable Length Code for both the Luminance and Chrominance Blocks for Each Macroblock 
+针对每个宏块的亮度区块和色度区块两者运用单变量长度编码的预测性图片压缩 
+185 
+6912584 
+Media Coding for Loss Recovery with Remotely Predicted Data Units 
+使用远程预测数据单位的用于损失恢复的媒体编码 
+186 
+7734821 
+Media Coding for Loss Recovery with Remotely Predicted Data Units 
+使用远程预测数据单位的用于损失恢复的媒体编码 
+187 
+7162091 
+Intra Compression of Pixel Blocks Using Predicted Mean 
+使用预测方法对像素块的内部压缩 
+188 
+7646816 
+Generalized Reference Decoder for Image or Video Processing 
+用于图片或视频处理的通用化的参考解码器 
+189 
+7593466 
+Generalized Reference Decoder for Image or Video Processing 
+用于图片或视频处理的通用化的参考解码器 
+190 
+7263232 
+Spatial Extrapolation Of Pixel Values For Intraframe Video Coding And Decoding 
+用于帧内视频编码和解码的像素值的空间外插法 
+191 
+7577305 
+Spatial Extrapolation Of Pixel Values For Intraframe Video Coding And Decoding 
+用于帧内视频编码和解码的像素值的空间外插法 
+192 
+7120197 
+Motion Compensation Loop With Filtering 
+使用过滤的运动补偿回路 
+193 
+7505485 
+Methods and Systems for Start Code Emulation Prevention and Data Stuffing 
+启动代码仿真预防和数据填充的方法和系统 
+194 
+7149247 
+Methods and Systems for Encoding and Decoding Video Data to Enable Random Access and Splicing 
+编码和解码视频数据以支持随机访问和拼接的方法和系统 
+195 
+7839895 
+Methods and Systems for Start Code Emulation Prevention and Data Stuffing 
+启动代码仿真预防和数据填充的方法和系统 
+196 
+7685305 
+Media Coding for Loss Recovery with Remotely Predicted Data Units 
+使用远程预测数据设备的用于损失恢复的媒体编码 
+197 
+7181072 
+Intra Compression of Pixel Blocks Using Predicted Mean 
+使用预测方法对像素块的内部压缩 
+198 
+8090574 
+Entropy Encoding and Decoding Using Direct Level And Run-Length/Level Context-Adaptive Arithmetic Coding/Decoding Modes 
+使用直接层级和运行-长度/层级上下文自适应算术编码/解码模式的熵编码和解码 
+199 
+6563953 
+Predictive Image Compression Using a Single Variable Length Code for both the Luminance and Chrominance Blocks for Each Macroblock 
+针对每个宏块的亮度区块和色度区块两者运用单变量长度编码的预测性图片压缩 
+200 
+6252610 
+Method and Apparatus for Efficiently Switching State in a Graphics Pipeline 
+在图形流水线中有效切换状态的方法和设备 
+Other "non-SEPs" -  其他的 "non-SEPs" 
+ 
+ 
+ 
+201 
+5579517 
+Common Name Space for Long and Short Filenames  
+长短文件名的公共命名空间 
+202 
+5758352 
+Common Name Space for Long and Short Filenames 
+长短文件名的公共命名空间 
+203 
+7383460 
+Method And System For Configuring A Timer 
+定时器配置方法和系统 
+204 
+6339780 
+Loading Status in a Hypermedia Browser Having a Limited Available Display Area 
+浏览器加载状态表示 
+205 
+6826762 
+Radio Interface Layer in a Cell Phone with a Set of API's Having a Hardware-Independent Proxy Layer and a Hardware-Specific Driver Layer 
+手机基带处理器 
+206 
+5889522 
+System Provided Child Window Controls 
+子窗口控制系统 
+207 
+5664133 
+Context Sensitive Menu System/Menu Behavior 
+上下文有关菜单系统/菜单行为 
+208 
+7644376 
+Flexible Architecture for Notifying Applications of State Changes 
+通知应用程序状态变更体系 
+209 
+6374276 
+Handheld Computing Device with External Notification System 
+外置通知系统 
+210 
+6822664 
+Browser Navigation for Devices With a Limited Input System 
+浏览器导航设备输入系统 
+211 
+7421666 
+Browser Navigation for Devices With a Limited Input System 
+浏览器导航设备输入系统 
+212 
+7454718 
+Browser Navigation for Devices With a Limited Input System 
+浏览器导航设备输入系统 
+213 
+6909910 
+Method and System for Managing Changes to a Contact Database 
+通讯录更新功能 
+214 
+6791536 
+Simulating Gestures of a Pointing Device Using a Stylus and Providing Feedback Thereto 
+触控笔输入方法 
+215 
+6897853 
+Highlevel Active Pen Matrix 
+触摸屏区分指令 
+216 
+7411582 
+Soft Input Panel System and Method 
+软键盘输入法 
+217 
+7024214 
+Synchronizing Over a Number of Synchronization Mechanisms Using Flexible Rules 
+同步信道选择方法 
+218 
+7493130 
+Synchronization Over a Number of Synchronization Mechanisms Using Flexible Rules 
+同步信道选择方法 
+219 
+6621746 
+Monitoring Entropic Conditions of a Flash Memory Device as an Indicator for Invoking Erasure Operations 
+闪存卡删除运算法则 
+220 
+5434776 
+Method and System for Creating Multi-Lingual Computer Programs by Dynamically Loading Messages 
+多语言软件 
+221 
+7050408 
+Communicating Multi-Part Messages Between Cellular Devices Using a Standardized Interface 
+使用标准化接口在移动设备间进行多部分信息传送 
+222 
+6957233 
+Method and Apparatus For Capturing And Rendering Annotations For Non-Modifiable Electronic Content 
+通过显示书签等方式在阅读电子书时进行注释标注、管理的方法 
+223 
+6891551 
+Selection Handles in Editing Electronic Documents 
+编辑电子文档时的选定手柄 
+224 
+6256642 
+Method and System for File System Management Using a Flash-Erasable, Programmable, Read-Only Memory 
+快闪存储器管理方法 
+225 
+5778372 
+Remote Retrieval and Display Management of Electronic Document with Incorporated Images 
+远程获取和显示含画面的文本 
+226 
+6240360 
+Computer System for Identifying Local Resources 
+识别本地资源的计算机系统 
+227 
+5905890 
+Event Architecture For System Management in an Operating Sys tem 
+操作系统中系统管理项目事件架构 
+228 
+6212676 
+Event Architecture For System Management in an Operating Sys tem 
+操作系统中系统管理项目事件架构 
+229 
+5813013 
+Representing Recurring Events 
+表现复现事件 
+230 
+6052735 
+Electronic Mail Object Synchronization Between a Desktop Computer and a Mobile Device 
+台式电脑和移动设备间电子邮件项目同步 
+231 
+6370566 
+Generating Meeting Requests and Group Scheduling from a Mobile Device 
+在移动设备上发起会议请求和组织调度 
+232 
+6578054 
+Network System For Synchornizing Resource Stored in the Server Based on the Resource State Information Transmitted from the Client 
+基于来自客户的资源状态信息同步存储于服务器内资源的网络系统 
+233 
+6694335 
+Method, Computer Readable Medium, and System for Monitoring the State of a Collection of Resources 
+监测资源收集状态的方法、计算机可读介质和系统 
+234 
+6920564 
+Methods, Systems, Computer Program Products, and Data Struct ures for Limiting the Dissemination of Electronic Mail 
+限制电子邮件传播的方法、系统、计算机软件产品和数据结构 
+235 
+6993715 
+Methods and Systems for Preparing Extensible Markup Language (XML) Documents and for Responding to XML Requests 
+准备可扩展标记语言（XML）文件和回应XML请求的方法和系统 
+236 
+6996770 
+Methods and Systems for Preparing Extensible Markup Language (XML) Documents and for Responding to XML Requests 
+准备可扩展标记语言（XML）文件和回应XML请求的方法和系统 
+237 
+7093136 
+Methods, Systems, Computer Program Products, and Data Struct ures for Limiting the Dissemination of Electronic Mail 
+限制电子邮件传播的方法、系统、计算机软件产品和数据结构 
+238 
+7111039 
+System and Method for Using Packed Compressed Buffers for Improved Client Server Communications 
+为提升客户服务器交流，使用打包压缩缓冲区的系统和方法 
+239 
+7451180 
+System and Method for Using Packed Compressed Buffers for Improved Client Server Communications 
+为提升客户服务器交流，使用打包压缩缓冲区的系统和方法 
+240 
+7493130 
+Synchronization Over a Number of Synchronization Mechanisms Using Flexible Rules 
+使用可变规则对大量同步机制进行同步 
+241 
+7499942 
+Modeling Recurring Events In A Data Store 
+在数据存储中建模复现事件 
+242 
+7773106 
+System and Apparatus For Sending Complete Responses To Truncated Electronic Mail Messages On A Mobile Device 
+向移动设备上删节的电子邮件信息发送完整回复的系统和设备 
+243 
+7962585 
+Partial item change tracking and synchronization 
+跟踪和同步部分条目的变更 
+244 
+8010997 
+Enforcing Device Settings For Mobile Devices 
+执行移动设备的设备设置 
+245 
+8015152 
+Web Based Client/Server Notification Engine 
+基于客户/服务器通知引擎的网络 
+246 
+8060064 
+System and Method for Optimizing Network Communication in Response to Network Conditions 
+回应网络状况时优化网络传输的系统和方法 
+247 
+8065282 
+MODELING RECURRING EVENTS IN A DATA STORE 
+在数据存储中建模复现事件 
+248 
+8155624 
+Automatic Wireless Device Message Management Responsive To End User Preferences 
+回应终端用户偏好的自动无线设备信息管理 
+249 
+8224295 
+System and Method for Optimizing Network Communication in Response to Network Conditions 
+回应网络状况时优化网络传输的系统和方法 
+250 
+8321416 
+MODELING RECURRING EVENTS IN A DATA STORE 
+在数据存储中建模复现事件 
+251 
+8386558 
+Cross-Pollination Synchronization Of Data 
+数据交叉同步 
+252 
+8423621 
+System and Method for Improved Synchronization Between a Server and a Client 
+提升服务器和客户间同步的系统和方法 
+253 
+US-2006-0200524-A1 
+Methods, Systems, and Computer-Readable Mediums for Configuring Electronic Messaging Applications 
+安装电子信息应用程序的方法、系统和计算机可读介质 
+254 
+US-2010-0082759-A1 
+Communications Grouped As Conversations 
+分组会话通信 
+255 
+US-2010-0093379-A1 
+UNIVERSAL MOBILE DEVICE MESSAGING 
+通用移动设备信息传输 
+256 
+US-2010-0145932-A1 
+Automatic Discovery of Alternate Mailboxes 
+自动检测备用邮箱 
+257 
+US-2010-0281127-A1 
+System and Apparatus For Sending Complete Responses To Truncated Electronic Mail Messages On A Mobile Device 
+向移动设备上删节的电子邮件信息发送完整回复的系统和设备 
+258 
+US-2010-0281136-A1 
+Methods and Systems for Preparing Extensible Markup Language (XML) Documents and for Responding to XML Requests 
+准备可扩展标记语言（XML）文件和回应XML请求的方法和系统 
+259 
+US-2011-0218963-A1 
+Partial Item Change Tracking and Synchronization 
+部分项目改变追踪和同步 
+260 
+US-2012-0172007-A1 
+AUTOMATIC WIRELESS DEVICE MESSAGE MANAGEMENT RESPONSIVE TO END USER PREFERENCES 
+回应终端用户偏好的自动无线设备信息管理 
+261 
+US-2012-0198053-A1 
+Web Based Client/Server Notification Engine 
+基于客户端/服务器通知引擎的网络 
+262 
+US-2012-0209928-A1 
+System and Method for Improved Synchronization Between a Server and a Client 
+提升服务器和客户之间同步的系统和方法 
+263 
+US-2012-0258687-A1 
+ENFORCING DEVICE SETTINGS FOR MOBILE DEVICES 
+执行移动设备的设备设置 
+264 
+US-2012-0284351-A1 
+System and Method for Optimizing Network Communication in Response to Network Conditions 
+优化回应网络条件的网络通信的系统和方法 
+265 
+US-2013-0086226-A1 
+MODELING RECURRING EVENTS IN A DATA STORE 
+在数据存储中建模复现事件 
+266 
+13/292346 
+TECHNIQUES TO APPLY AND SHARE REMOTE POLICIES ON MOBILE DEVICES 
+在移动设备上应用和共享远程政策的技术 
+267 
+13/752717 
+Cross-Polination Synchronization Of Data 
+数据交叉同步 
+268 
+13/861721 
+System and Method for Improved Synchronization Between a Server and a Client 
+提升服务器和客户之间同步的系统和方法 
+269 
+13/946732 
+System and Method for Optimizing Network Communication in Response to Network Conditions 
+优化回应网络条件的网络通信的系统和方法 
+270 
+14/074257 
+UNIVERSAL MOBILE DEVICE MESSAGING 
+通用移动设备信息传输 
+271 
+14/139301 
+Automatic Wireless Device Message Management Responsive To End User Preferences 
+响应最终用户偏好的自动无线设备信息管理 
+272 
+7873596 
+Extending Cluster Allocations in an Extensible File System (exFAT) 
+在一个可扩展的文件系统中扩展的集群配置 (exFAT) 
+273 
+8321439 
+QUICK FILENAME LOOKUP USING NAME HASH 
+使用散列名称快速查找文件名 
+274 
+8364732 
+Extending Cluster Allocations In An Extensible File System 
+在一个可扩展的文件系统中扩展的集群配置 
+275 
+8433677 
+EXTENDING CLUSTER ALLOCATIONS IN AN EXTENSIBLE FILE SYSTEM 
+在一个可扩展的文件系统中扩展的集群配置 
+276 
+8452729 
+Extending Cluster Allocations In An Extensible File System 
+在一个可扩展的文件系统中扩展的集群配置 
+277 
+8583708 
+Extensible File System 
+可扩展的文件系统 
+278 
+8606830 
+CONTIGUOUS FILE ALLOCATION IN AN EXTENSIBLE FILE SYSTEM 
+在一个可扩展的文件系统中连续文件配置 
+279 
+11/229485 
+Extensible File System 
+可扩展的文件系统 
+280 
+12/052594 
+Extensible File System 
+可扩展的文件系统 
+281 
+12/052603 
+Naming Protocol for Extensible File Systems 
+可扩展文件系统的命名协议 
+282 
+12/493172 
+EXTENSIBLE FILE SYSTEM 
+可扩展的文件系统 
+283 
+13/685018 
+QUICK FILENAME LOOKUP USING NAME HASH 
+使用散列名称快速查找文件名 
+284 
+13/875386 
+Extending Cluster Allocations In An Extensible File System 
+在一个可扩展的文件系统中扩展集群配置 
+285 
+13/901997 
+Extending Cluster Allocations In An Extensible File System 
+在一个可扩展的文件系统中扩展集群配置 
+286 
+14/075525 
+Extensible File System 
+可扩展文件系统 
+287 
+14/099307 
+CONTIGUOUS FILE ALLOCATION IN AN EXTENSIBLE FILE SYSTEM 
+在一个可扩展的文件系统中的连续文件配置 
+288 
+6189146 
+System and Method for Software Licensing 
+软件许可的系统和方法 
+289 
+6657625 
+System and Method of Caching Glyphs for Display by a Remote Terminal  
+通过远程终端显示缓存符号的系统和方法 
+290 
+7080404 
+Automatic Re-Authentication 
+自动重新验证 
+291 
+8243340 
+Pre-Processing Of Image Data For Enhanced Compression 
+为了加强压缩的图像数据的预处理 
+292 
+8244051 
+Efficient Encoding of Alternative Graphic Sets 
+可供选择的图像集的快速编码 
+293 
+8351716 
+Efficient Encoding of Alternative Graphic Sets 
+可供选择的图像集的快速编码 
+294 
+8433747 
+Graphics Remoting Architecture 
+图像远程处理架构 
+295 
+8504694 
+Remote Content Classification and transmission Using Multiple Transport Channels 
+利用多种传输渠道进行远程内容分类和传输 
+296 
+8527563 
+Remoting redirection layer for graphics device interface 
+图像设备界面的远程处理重定向层 
+297 
+US-2008-0189355-A1 
+Per-Application Remote Volume Control 
+每个应用程序的远程音量控制 
+298 
+US-2011-0035758-A1 
+Plug and Play Device Redirection for Remote systems 
+远程系统的即插即用设备重定向 
+299 
+US-2011-0142334-A1 
+Accelerating Bitmap Remoting by Identifying And Extracting 2D Patterns From Source Bitmaps 
+通过从原位图识别和提取2D模式来加速位图远程处理 
+300 
+US-2011-0185068-A1 
+Multi-Link Remote Protocol 
+多连接远程协议 
+301 
+US-2011-0197151-A1 
+Graphics Remoting Using Augmentation Data 
+使用增加数据的图像远程处理 
+302 
+US-2012-0266214-A1 
+CREATING SECURE INTERACTIVE CONNECTIONS WITH REMOTE RESOURCES 
+利用远程数据创造安全交互连接 
+303 
+US-2012-0275697-A1 
+Pre-Processing Of Image Data For Enhanced Compression 
+为了加强压缩的图像数据的预处理 
+304 
+US-2013-0031482-A1 
+Multi-Touch Remoting 
+多点触摸远程处理 
+305 
+US-2013-0054835-A1 
+Data Compressor Using Hints 
+使用提示的数据压缩器 
+306 
+US-2013-0060886-A1 
+Cross-Frame Progressive Spoiling Support for Reduced Network Bandwidth Usage 
+针对减少的网络宽带使用的交叉框架渐进损毁支持 
+307 
+US-2013-0268685-A1 
+LOSS TOLERANT PROTOCOL FOR REMOTING DESKTOP GRAPHICS 
+桌面图像远程处理的容失协议 
+308 
+13/729679 
+PROGRESSIVE ENTROPY ENCODING 
+先进的熵编码 
+309 
+13/754003 
+REDUCE EXTRAPOLATE 
+减少外推 
+310 
+13/923134 
+Asynchronous transport setup and selection for interactive applications 
+交互式应用的非同步传输设备和选项 
+

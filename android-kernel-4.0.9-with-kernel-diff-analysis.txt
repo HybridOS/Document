@@ -1,0 +1,1769 @@
+#比较android-x86 kernel 4.0.9 with linux kernel 4.0.9
+#且比较了在aosp android kernel 3.10中是否包含同样的change
+1 表示 android-x86 独有的
+2 表示 aosp 和android-x86都有
+====================================================
+2: arch/x86/include/asm/idle.h  
+====================================================
+1: arch/x86/kernel/cpu/intel.c
+关系不大
+commit 5274cab146af9a41d053a1797b109a52be5f4d9f
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Sun Feb 8 23:39:05 2015 +0800
+
+    x86/intel: force tsc to be reliable on Baytrail
+
+diff --git a/arch/x86/kernel/cpu/intel.c b/arch/x86/kernel/cpu/intel.c
+index 50163fa..ae2ab91 100644
+--- a/arch/x86/kernel/cpu/intel.c
++++ b/arch/x86/kernel/cpu/intel.c
+@@ -95,6 +95,8 @@ static void early_init_intel(struct cpuinfo_x86 *c)
+        /* Penwell and Cloverview have the TSC which doesn't sleep on S3 */
+        if (c->x86 == 6) {
+                switch (c->x86_model) {
++               case 0x37:      /* ValleyView */
++                       set_cpu_cap(c, X86_FEATURE_TSC_RELIABLE);
+                case 0x27:      /* Penwell */
+                case 0x35:      /* Cloverview */
+                        set_cpu_cap(c, X86_FEATURE_NONSTOP_TSC_S3);
+
+
+====================================================
+2: arch/x86/kernel/process.c
+是比较老的修改
+====================================================
+1   : arch/x86/kernel/trap.c
+
+觉得对于destop CPU, SSSE3是有的，所以应该不太重要
+
+git log -p arch/x86/kernel/traps.c
+commit 0ae856ae0cfc21b420c421f00b36bc17a43536ec
+Author: Robert Mazur <robert.mazur.mazur@gmail.com>
+Date:   Tue Dec 23 07:51:17 2014 +0100
+
+    SSSE3 emulation for invalid opcode
+    
+    Use SSEPlus reference implementation of SSSE3 instructions.
+    For CPUs without SSSE3 support.
+    
+    Signed-off-by: Robert Mazur <robert.mazur.mazur@gmail.com>
+
+diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
+index 4ff5d16..b4c32fdd 100644
+--- a/arch/x86/kernel/traps.c
++++ b/arch/x86/kernel/traps.c
+@@ -311,13 +311,263 @@ dotraplinkage void do_##name(struct pt_regs *regs, long error_code)      \
+ 
+ DO_ERROR(X86_TRAP_DE,     SIGFPE,  "divide error",             divide_error)
+ DO_ERROR(X86_TRAP_OF,     SIGSEGV, "overflow",                 overflow)
+-DO_ERROR(X86_TRAP_UD,     SIGILL,  "invalid opcode",           invalid_op)
+ DO_ERROR(X86_TRAP_OLD_MF, SIGFPE,  "coprocessor segment overrun",coprocessor_segment_overrun)
+ DO_ERROR(X86_TRAP_TS,     SIGSEGV, "invalid TSS",              invalid_TSS)
+ DO_ERROR(X86_TRAP_NP,     SIGBUS,  "segment not present",      segment_not_present)
+ DO_ERROR(X86_TRAP_SS,     SIGBUS,  "stack segment",            stack_segment)
+ DO_ERROR(X86_TRAP_AC,     SIGBUS,  "alignment check",          alignment_check)
+ 
++
++typedef union {
++       u64 u64[2];
++       s64 s64[2];
++       u32 u32[4];
++       s32 s32[4];
++       u16 u16[8];
++       s16 s16[8];
++       u8 u8[16];
++       s8 s8[16];
++} ssp_m128 __aligned(16);
++
++static void ssp_abs_epi8(ssp_m128 *A)
++{
++       A->s8[0]  = (A->s8[0] < 0) ? -A->s8[0]  : A->s8[0];
++       A->s8[1]  = (A->s8[1] < 0) ? -A->s8[1]  : A->s8[1];
++       A->s8[2]  = (A->s8[2] < 0) ? -A->s8[2]  : A->s8[2];
++       A->s8[3]  = (A->s8[3] < 0) ? -A->s8[3]  : A->s8[3];
++       A->s8[4]  = (A->s8[4] < 0) ? -A->s8[4]  : A->s8[4];
++       A->s8[5]  = (A->s8[5] < 0) ? -A->s8[5]  : A->s8[5];
++       A->s8[6]  = (A->s8[6] < 0) ? -A->s8[6]  : A->s8[6];
++       A->s8[7]  = (A->s8[7] < 0) ? -A->s8[7]  : A->s8[7];
++       A->s8[8]  = (A->s8[8] < 0) ? -A->s8[8]  : A->s8[8];
++       A->s8[9]  = (A->s8[9] < 0) ? -A->s8[9]  : A->s8[9];
++       A->s8[10] = (A->s8[10] < 0) ? -A->s8[10] : A->s8[10];
++       A->s8[11] = (A->s8[11] < 0) ? -A->s8[11] : A->s8[11];
++       A->s8[12] = (A->s8[12] < 0) ? -A->s8[12] : A->s8[12];
++       A->s8[13] = (A->s8[13] < 0) ? -A->s8[13] : A->s8[13];
++       A->s8[14] = (A->s8[14] < 0) ? -A->s8[14] : A->s8[14];
++       A->s8[15] = (A->s8[15] < 0) ? -A->s8[15] : A->s8[15];
++}
++
++static void ssp_abs_epi16(ssp_m128 *A)
++{
++       A->s16[0] = (A->s16[0] < 0) ? -A->s16[0]  : A->s16[0];
++       A->s16[1] = (A->s16[1] < 0) ? -A->s16[1]  : A->s16[1];
++       A->s16[2] = (A->s16[2] < 0) ? -A->s16[2]  : A->s16[2];
++       A->s16[3] = (A->s16[3] < 0) ? -A->s16[3]  : A->s16[3];
++       A->s16[4] = (A->s16[4] < 0) ? -A->s16[4]  : A->s16[4];
++       A->s16[5] = (A->s16[5] < 0) ? -A->s16[5]  : A->s16[5];
++       A->s16[6] = (A->s16[6] < 0) ? -A->s16[6]  : A->s16[6];
++       A->s16[7] = (A->s16[7] < 0) ? -A->s16[7]  : A->s16[7];
++}
++
++static void ssp_abs_epi32(ssp_m128 *A)
++{
++       A->s32[0] = (A->s32[0] < 0) ? -A->s32[0]  : A->s32[0];
++       A->s32[1] = (A->s32[1] < 0) ? -A->s32[1]  : A->s32[1];
++       A->s32[2]git log -p arch/x86/kernel/traps.c
+commit 0ae856ae0cfc21b420c421f00b36bc17a43536ec
+Author: Robert Mazur <robert.mazur.mazur@gmail.com>
+Date:   Tue Dec 23 07:51:17 2014 +0100
+
+    SSSE3 emulation for invalid opcode
+    
+    Use SSEPlus reference implementation of SSSE3 instructions.
+    For CPUs without SSSE3 support.
+    
+    Signed-off-by: Robert Mazur <robert.mazur.mazur@gmail.com>
+
+diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
+index 4ff5d16..b4c32fdd 100644
+--- a/arch/x86/kernel/traps.c
++++ b/arch/x86/kernel/traps.c
+@@ -311,13 +311,263 @@ dotraplinkage void do_##name(struct pt_regs *regs, long error_code)      \
+ 
+ DO_ERROR(X86_TRAP_DE,     SIGFPE,  "divide error",             divide_error)
+ DO_ERROR(X86_TRAP_OF,     SIGSEGV, "overflow",                 overflow)
+-DO_ERROR(X86_TRAP_UD,     SIGILL,  "invalid opcode",           invalid_op)
+ DO_ERROR(X86_TRAP_OLD_MF, SIGFPE,  "coprocessor segment overrun",coprocessor_segment_overrun)
+ DO_ERROR(X86_TRAP_TS,     SIGSEGV, "invalid TSS",              invalid_TSS)
+ DO_ERROR(X86_TRAP_NP,     SIGBUS,  "segment not present",      segment_not_present)
+ DO_ERROR(X86_TRAP_SS,     SIGBUS,  "stack segment",            stack_segment)
+ DO_ERROR(X86_TRAP_AC,     SIGBUS,  "alignment check",          alignment_check)
+ 
++
++typedef union {
++       u64 u64[2];
++       s64 s64[2];
++       u32 u32[4];
++       s32 s32[4];
++       u16 u16[8];
++       s16 s16[8];
++       u8 u8[16];
++       s8 s8[16];
++} ssp_m128 __aligned(16);
++
++static void ssp_abs_epi8(ssp_m128 *A)
++{
++       A->s8[0]  = (A->s8[0] < 0) ? -A->s8[0]  : A->s8[0];
++       A->s8[1]  = (A->s8[1] < 0) ? -A->s8[1]  : A->s8[1];
++       A->s8[2]  = (A->s8[2] < 0) ? -A->s8[2]  : A->s8[2];
++       A->s8[3]  = (A->s8[3] < 0) ? -A->s8[3]  : A->s8[3];
++       A->s8[4]  = (A->s8[4] < 0) ? -A->s8[4]  : A->s8[4];
++       A->s8[5]  = (A->s8[5] < 0) ? -A->s8[5]  : A->s8[5];
++       A->s8[6]  = (A->s8[6] < 0) ? -A->s8[6]  : A->s8[6];
++       A->s8[7]  = (A->s8[7] < 0) ? -A->s8[7]  : A->s8[7];
++       A->s8[8]  = (A->s8[8] < 0) ? -A->s8[8]  : A->s8[8];
++       A->s8[9]  = (A->s8[9] < 0) ? -A->s8[9]  : A->s8[9];
++       A->s8[10] = (A->s8[10] < 0) ? -A->s8[10] : A->s8[10];
++       A->s8[11] = (A->s8[11] < 0) ? -A->s8[11] : A->s8[11];
++       A->s8[12] = (A->s8[12] < 0) ? -A->s8[12] : A->s8[12];
++       A->s8[13] = (A->s8[13] < 0) ? -A->s8[13] : A->s8[13];
++       A->s8[14] = (A->s8[14] < 0) ? -A->s8[14] : A->s8[14];
++       A->s8[15] = (A->s8[15] < 0) ? -A->s8[15] : A->s8[15];
++}
++
++static void ssp_abs_epi16(ssp_m128 *A)
++{
++       A->s16[0] = (A->s16[0] < 0) ? -A->s16[0]  : A->s16[0];
++       A->s16[1] = (A->s16[1] < 0) ? -A->s16[1]  : A->s16[1];
++       A->s16[2] = (A->s16[2] < 0) ? -A->s16[2]  : A->s16[2];
++       A->s16[3] = (A->s16[3] < 0) ? -A->s16[3]  : A->s16[3];
++       A->s16[4] = (A->s16[4] < 0) ? -A->s16[4]  : A->s16[4];
++       A->s16[5] = (A->s16[5] < 0) ? -A->s16[5]  : A->s16[5];
++       A->s16[6] = (A->s16[6] < 0) ? -A->s16[6]  : A->s16[6];
++       A->s16[7] = (A->s16[7] < 0) ? -A->s16[7]  : A->s16[7];
++}
++
++static void ssp_abs_epi32(ssp_m128 *A)
++{
++       A->s32[0] = (A->s32[0] < 0) ? -A->s32[0]  : A->s32[0];
++       A->s32[1] = (A->s32[1] < 0) ? -A->s32[1]  : A->s32[1];
++       A->s32[2] = (A->s32[2] < 0) ? -A->s32[2]  : A->s32[2];
++       A->s32[3] = (A->s32[3] < 0) ? -A->s32[3]  : A->s32[3];
++}
++
++static ssp_m128 ssp_shuffle_epi8(ssp_m128 *A, ssp_m128 *MSK)
++{
++       ssp_m128 B;
++
++       B.s8[0]  = (MSK->s8[0]  & 0x80) ? 0 : A->s8[(MSK->s8[0]  & 0xf)];
++       B.s8[1]  = (MSK->s8[1]  & 0x80) ? 0 : A->s8[(MSK->s8[1]  & 0xf)];
++       B.s8[2]  = (MSK->s8[2]  & 0x80) ? 0 : A->s8[(MSK->s8[2]  & 0xf)];
++       B.s8[3]  = (MSK->s8[3]  & 0x80) ? 0 : A->s8[(MSK->s8[3]  & 0xf)];
++       B.s8[4]  = (MSK->s8[4]  & 0x80) ? 0 : A->s8[(MSK->s8[4]  & 0xf)];
++       B.s8[5]  = (MSK->s8[5]  & 0x80) ? 0 : A->s8[(MSK->s8[5]  & 0xf)];
++       B.s8[6]  = (MSK->s8[6]  & 0x80) ? 0 : A->s8[(MSK->s8[6]  & 0xf)];
++       B.s8[7]  = (MSK->s8[7]  & 0x80) ? 0 : A->s8[(MSK->s8[7]  & 0xf)];
++       B.s8[8]  = (MSK->s8[8]  & 0x80) ? 0 : A->s8[(MSK->s8[8]  & 0xf)];
++       B.s8[9]  = (MSK->s8[9]  & 0x80) ? 0 : A->s8[(MSK->s8[9]  & 0xf)];
++       B.s8[10] = (MSK->s8[10] & 0x80) ? 0 : A->s8[(MSK->s8[10] & 0xf)];
++       B.s8[11] = (MSK->s8[11] & 0x80) ? 0 : A->s8[(MSK->s8[11] & 0xf)];
++       B.s8[12] = (MSK->s8[12] & 0x80) ? 0 : A->s8[(MSK->s8[12] & 0xf)];
++       B.s8[13] = (MSK->s8[13] & 0x80) ? 0 : A->s8[(MSK->s8[13] & 0xf)];
++       B.s8[14] = (MSK->s8[14] & 0x80) ? 0 : A->s8[(MSK->s8[14] & 0xf)];
++       B.s8[15] = (MSK->s8[15] & 0x80) ? 0 : A->s8[(MSK->s8[15] & 0xf)];
++
++       return B;
++}
++
++static void ssp_alignr_epi8(ssp_m128 *ret, ssp_m128 *a, ssp_m128 *b,
++                            const unsigned int ralign)
++{
++       u8 tmp[32];
++       int i, j;
++
++       if (ralign == 0) {
++               *ret = *b;
++               return;
++       }
++
++       ret->u64[1] = ret->u64[0] = 0;
++
++       if (ralign >= 32)
++               return;
++
++       *((ssp_m128 *)(&tmp[0])) = *b;
++       *((ssp_m128 *)(&tmp[16])) = *a;
++
++       for (i = 15 + ralign, j = 15; i >= ralign; i--, j--)
++               ret->u8[j] = (i < 32) ? tmp[i] : 0;
++}
++
++#define OPCODE_SIZE 6
++
++dotraplinkage void do_invalid_op(struct pt_regs *regs, long error_code)
++{
++       siginfo_t info;
++       enum ctx_state prev_state;
++       int handled = 0;
++       union {
++               unsigned char byte[OPCODE_SIZE];
++       } opcode;
++
++       info.si_signo = SIGILL;
++       info.si_errno = 0;
++       info.si_code = ILL_ILLOPN;
++       info.si_addr = (void __user *)regs->ip;
++
++       prev_state = exception_enter();
++
++       if (copy_from_user((void *)&opcode.byte[0],
++               (const void __user *)regs->ip, OPCODE_SIZE)) {
++               pr_info("No user code available.");
++       }
++
++       if (opcode.byte[0] == 0x66) {
++               int i;
++               for (i = 1; i < OPCODE_SIZE; i++)
++                       opcode.byte[i-1] = opcode.byte[i];
++               regs->ip++;
++       }
++
++       if (opcode.byte[0] == 0x0f) {
++               if (opcode.byte[1] == 0x38) {
++                       switch (opcode.byte[2]) {
++                       case 0x00:
++                               if (opcode.byte[3] == 0xc1) {
++                                       ssp_m128 ret;
++                                       ssp_m128 mask;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m"(ret));
++                                       asm volatile("movdqa %%xmm1, %0" : "=m"(mask));
++                                       ret = ssp_shuffle_epi8(&ret, &mask);
++                                       asm volatile("movdqa %0, %%xmm0" : : "m"(ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       case 0x1c:
++                               if (opcode.byte[3] == 0xc8) {
++                                       ssp_m128 ret;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m" (ret));
++                                       ssp_abs_epi8(&ret);
++                                       asm volatile("movdqa %0, %%xmm1" : : "m" (ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       case 0x1d:
++                               if (opcode.byte[3] == 0xc8) {
++                                       ssp_m128 ret;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m" (ret));
++                                       ssp_abs_epi16(&ret);
++                                       asm volatile("movdqa %0, %%xmm1" : : "m" (ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       case 0x1e:
++                               if (opcode.byte[3] == 0xc8) {
++                                       ssp_m128 ret;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m" (ret));
++                                       ssp_abs_epi32(&ret);
++                                       asm volatile("movdqa %0, %%xmm1" : : "m" (ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       }
++               } else if ((opcode.byte[1] == 0x3a) && (opcode.byte[2] == 0x0f)) {
++                       ssp_m128 ret;
++                       ssp_m128 a;
++                       ssp_m128 b;
++                       int ralign;
++
++                       ralign = opcode.byte[4];
++
++                       handled = 1;
++
++                       switch (opcode.byte[3]) {
++                       case 0xd1:
++                               asm volatile("movdqa %%xmm2, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm1, %0" : "=m" (b));
++                               break;
++                       case 0xec:
++                               asm volatile("movdqa %%xmm5, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm4, %0" : "=m" (b));
++                               break;
++                       case 0xe3:
++                               asm volatile("movdqa %%xmm4, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm3, %0" : "=m" (b));
++                               break;
++                       case 0xda:
++                               asm volatile("movdqa %%xmm3, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm2, %0" : "=m" (b));
++                               break;
++                       case 0xf1:
++                               asm volatile("movdqa %%xmm6, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm1, %0" : "=m" (b));
++                               break;
++                       case 0xd4:
++                               asm volatile("movdqa %%xmm2, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm4, %0" : "=m" (b));
++                               break;
++                       default:
++                               handled = 0;
++                               break;
++                       }
++
++                       ssp_alignr_epi8(&ret, &a, &b, ralign);
++
++                       switch (opcode.byte[3]) {
++                       case 0xd1:
++                       case 0xd4:
++                               asm volatile("movdqa %0, %%xmm2" : : "m" (ret));
++                               break;
++                       case 0xec:
++                               asm volatile("movdqa %0, %%xmm5" : : "m" (ret));
++                               break;
++                       case 0xe3:
++                               asm volatile("movdqa %0, %%xmm4" : : "m" (ret));
++                               break;
++                       case 0xda:
++                               asm volatile("movdqa %0, %%xmm3" : : "m" (ret));
++                               break;
++                       case 0xf1:
++                               asm volatile("movdqa %0, %%xmm6" : : "m" (ret));
++                               break;
++                       }
++                       regs->ip += 5;
++               }
++       }
++
++       if (!handled) {
++               if (notify_die(DIE_TRAP, "invalid opcode", regs, error_code,
++                       X86_TRAP_UD, SIGILL) == NOTIFY_STOP) {
++                       exception_exit(prev_state);
++                       return;
++               }
++               conditional_sti(regs);
++               do_trap(X86_TRAP_UD, SIGILL, "invalid opcode", regs, error_code, &info);
++       }
++       exception_exit(prev_state);
++}
++
+ #ifdef CONFIG_X86_64
+ /* Runs on IST stack */
+ dotraplinkage void do_double_fault(struct pt_regs *regs, long error_code)
+ = (A->s32[2] < 0) ? -A->s32[2]  : A->s32[2];
++       A->s32[3] = (A->s32[3] < 0) ? -A->s32[3]  : A->s32[3];
++}
++
++static ssp_m128 ssp_shuffle_epi8(ssp_m128 *A, ssp_m128 *MSK)
++{
++       ssp_m128 B;
++
++       B.s8[0]  = (MSK->s8[0]  & 0x80) ? 0 : A->s8[(MSK->s8[0]  & 0xf)];
++       B.s8[1]  = (MSK->s8[1]  & 0x80) ? 0 : A->s8[(MSK->s8[1]  & 0xf)];
++       B.s8[2]  = (MSK->s8[2]  & 0x80) ? 0 : A->s8[(MSK->s8[2]  & 0xf)];
++       B.s8[3]  = (MSK->s8[3]  & 0x80) ? 0 : A->s8[(MSK->s8[3]  & 0xf)];
++       B.s8[4]  = (MSK->s8[4]  & 0x80) ? 0 : A->s8[(MSK->s8[4]  & 0xf)];
++       B.s8[5]  = (MSK->s8[5]  & 0x80) ? 0 : A->s8[(MSK->s8[5]  & 0xf)];
++       B.s8[6]  = (MSK->s8[6]  & 0x80) ? 0 : A->s8[(MSK->s8[6]  & 0xf)];
++       B.s8[7]  = (MSK->s8[7]  & 0x80) ? 0 : A->s8[(MSK->s8[7]  & 0xf)];
++       B.s8[8]  = (MSK->s8[8]  & 0x80) ? 0 : A->s8[(MSK->s8[8]  & 0xf)];
++       B.s8[9]  = (MSK->s8[9]  & 0x80) ? 0 : A->s8[(MSK->s8[9]  & 0xf)];
++       B.s8[10] = (MSK->s8[10] & 0x80) ? 0 : A->s8[(MSK->s8[10] & 0xf)];
++       B.s8[11] = (MSK->s8[11] & 0x80) ? 0 : A->s8[(MSK->s8[11] & 0xf)];
++       B.s8[12] = (MSK->s8[12] & 0x80) ? 0 : A->s8[(MSK->s8[12] & 0xf)];
++       B.s8[13] = (MSK->s8[13] & 0x80) ? 0 : A->s8[(MSK->s8[13] & 0xf)];
++       B.s8[14] = (MSK->s8[14] & 0x80) ? 0 : A->s8[(MSK->s8[14] & 0xf)];
++       B.s8[15] = (MSK->s8[15] & 0x80) ? 0 : A->s8[(MSK->s8[15] & 0xf)];
++
++       return B;
++}
++
++static void ssp_alignr_epi8(ssp_m128 *ret, ssp_m128 *a, ssp_m128 *b,
++                            const unsigned int ralign)
++{
++       u8 tmp[32];
++       int i, j;
++
++       if (ralign == 0) {
++               *ret = *b;
++               return;
++       }
++
++       ret->u64[1] = ret->u64[0] = 0;
++
++       if (ralign >= 32)
++               return;
++
++       *((ssp_m128 *)(&tmp[0])) = *b;
++       *((ssp_m128 *)(&tmp[16])) = *a;
++
++       for (i = 15 + ralign, j = 15; i >= ralign; i--, j--)
++               ret->u8[j] = (i < 32) ? tmp[i] : 0;
++}
++
++#define OPCODE_SIZE 6
++
++dotraplinkage void do_invalid_op(struct pt_regs *regs, long error_code)
++{
++       siginfo_t info;
++       enum ctx_state prev_state;
++       int handled = 0;
++       union {
++               unsigned char byte[OPCODE_SIZE];
++       } opcode;
++
++       info.si_signo = SIGILL;
++       info.si_errno = 0;
++       info.si_code = ILL_ILLOPN;
++       info.si_addr = (void __user *)regs->ip;
++
++       prev_state = exception_enter();
++
++       if (copy_from_user((void *)&opcode.byte[0],
++               (const void __user *)regs->ip, OPCODE_SIZE)) {
++               pr_info("No user code available.");
++       }
++
++       if (opcode.byte[0] == 0x66) {
++               int i;
++               for (i = 1; i < OPCODE_SIZE; i++)
++                       opcode.byte[i-1] = opcode.byte[i];
++               regs->ip++;
++       }
++
++       if (opcode.byte[0] == 0x0f) {
++               if (opcode.byte[1] == 0x38) {
++                       switch (opcode.byte[2]) {
++                       case 0x00:
++                               if (opcode.byte[3] == 0xc1) {
++                                       ssp_m128 ret;
++                                       ssp_m128 mask;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m"(ret));
++                                       asm volatile("movdqa %%xmm1, %0" : "=m"(mask));
++                                       ret = ssp_shuffle_epi8(&ret, &mask);
++                                       asm volatile("movdqa %0, %%xmm0" : : "m"(ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       case 0x1c:
++                               if (opcode.byte[3] == 0xc8) {
++                                       ssp_m128 ret;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m" (ret));
++                                       ssp_abs_epi8(&ret);
++                                       asm volatile("movdqa %0, %%xmm1" : : "m" (ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       case 0x1d:
++                               if (opcode.byte[3] == 0xc8) {
++                                       ssp_m128 ret;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m" (ret));
++                                       ssp_abs_epi16(&ret);
++                                       asm volatile("movdqa %0, %%xmm1" : : "m" (ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       case 0x1e:
++                               if (opcode.byte[3] == 0xc8) {
++                                       ssp_m128 ret;
++                                       asm volatile("movdqa %%xmm0, %0" : "=m" (ret));
++                                       ssp_abs_epi32(&ret);
++                                       asm volatile("movdqa %0, %%xmm1" : : "m" (ret));
++                                       regs->ip += 4;
++                                       handled = 1;
++                               }
++                               break;
++                       }
++               } else if ((opcode.byte[1] == 0x3a) && (opcode.byte[2] == 0x0f)) {
++                       ssp_m128 ret;
++                       ssp_m128 a;
++                       ssp_m128 b;
++                       int ralign;
++
++                       ralign = opcode.byte[4];
++
++                       handled = 1;
++
++                       switch (opcode.byte[3]) {
++                       case 0xd1:
++                               asm volatile("movdqa %%xmm2, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm1, %0" : "=m" (b));
++                               break;
++                       case 0xec:
++                               asm volatile("movdqa %%xmm5, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm4, %0" : "=m" (b));
++                               break;
++                       case 0xe3:
++                               asm volatile("movdqa %%xmm4, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm3, %0" : "=m" (b));
++                               break;
++                       case 0xda:
++                               asm volatile("movdqa %%xmm3, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm2, %0" : "=m" (b));
++                               break;
++                       case 0xf1:
++                               asm volatile("movdqa %%xmm6, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm1, %0" : "=m" (b));
++                               break;
++                       case 0xd4:
++                               asm volatile("movdqa %%xmm2, %0" : "=m" (a));
++                               asm volatile("movdqa %%xmm4, %0" : "=m" (b));
++                               break;
++                       default:
++                               handled = 0;
++                               break;
++                       }
++
++                       ssp_alignr_epi8(&ret, &a, &b, ralign);
++
++                       switch (opcode.byte[3]) {
++                       case 0xd1:
++                       case 0xd4:
++                               asm volatile("movdqa %0, %%xmm2" : : "m" (ret));
++                               break;
++                       case 0xec:
++                               asm volatile("movdqa %0, %%xmm5" : : "m" (ret));
++                               break;
++                       case 0xe3:
++                               asm volatile("movdqa %0, %%xmm4" : : "m" (ret));
++                               break;
++                       case 0xda:
++                               asm volatile("movdqa %0, %%xmm3" : : "m" (ret));
++                               break;
++                       case 0xf1:
++                               asm volatile("movdqa %0, %%xmm6" : : "m" (ret));
++                               break;
++                       }
++                       regs->ip += 5;
++               }
++       }
++
++       if (!handled) {
++               if (notify_die(DIE_TRAP, "invalid opcode", regs, error_code,
++                       X86_TRAP_UD, SIGILL) == NOTIFY_STOP) {
++                       exception_exit(prev_state);
++                       return;
++               }
++               conditional_sti(regs);
++               do_trap(X86_TRAP_UD, SIGILL, "invalid opcode", regs, error_code, &info);
++       }
++       exception_exit(prev_state);
++}
++
+ #ifdef CONFIG_X86_64
+ /* Runs on IST stack */
+ dotraplinkage void do_double_fault(struct pt_regs *regs, long error_code)
+
+====================================================
+1: arch/x86/kernel/Makefile
+调整了
+KBUILD_CFLAGS += -fno-pic
+的位置，便于编译通过
+
+====================================================
+2: block/genhd.c 和 partition-generic.c
+
+====================================================
+1: drivers/acpi/acpica/utosi.c
+1: drivers/acpi/button.c ec.c internal.h sleep.c
+
+没啥用
+git log -p drivers/acpi/ec.c
+commit a2ba78168aaaca724003d0dd150f1526611fa037
+Author: Lan Tianyu <tianyu.lan@intel.com>
+Date:   Wed Apr 1 09:47:18 2015 +0800
+
+    ACPI / EC: Call acpi_walk_dep_device_list() after installing EC opregion handler
+    
+    On some machines(E,G Mircosoft surface 3), ACPI battery depends on
+    the EC operation region and it has _DEP method which contains EC.
+    Current code doesn't support such devices whose dep_unmet will be
+    not be decreased after EC opregion handler being installed. This
+    blocks battery device to be attached with its driver. This patch
+    is to fix the issue.
+    
+    Link: https://bugzilla.kernel.org/show_bug.cgi?id=90161
+    Reported-and-tested-by: Lompik <lompik@voila.fr>
+    Tested-by: Valentin Lab <valentin.lab_bugzilla.kernel.org@kalysto.org>
+    Signed-off-by: Lan Tianyu <tianyu.lan@intel.com>
+    Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
+index a8dd2f7..8cc6292 100644
+--- a/drivers/acpi/ec.c
++++ b/drivers/acpi/ec.c
+@@ -1099,6 +1099,9 @@ static int acpi_ec_add(struct acpi_device *device)
+ 
+        ret = ec_install_handlers(ec);
+ 
++       /* Reprobe devices depending on the EC */
++       acpi_walk_dep_device_list(ec->handle);
++
+        /* EC is fully operational, allow queries */
+        clear_bit(EC_FLAGS_QUERY_PENDING, &ec->flags);
+
+
+
+
+sleep.c 好像没啥用，用于睡眠与唤醒   
+commit 535b996ba7288f3fb3804d87fd921a9409e57a6a
+Author: srinivas pandruvada <srinivas.pandruvada@intel.com>
+Date:   Fri Aug 3 13:50:08 2012 -0700
+
+    ACPI: Power button event after resume
+    
+    When system is resumed because of user pressed a power button,
+    this event is not passed to user space. This event is important
+    to resume user mode in some systems like Android.
+    This is built on the patch from "Daniel Drake" for OLPC.
+    We need some mechanism where user space doesn't have to use polling.
+    If we resort to polling to get the wake up source, because of
+    auto-suspend mode system sleep before user mode can complete polling.
+    
+    Change-Id: I2901f543492d1454b0ceefc96da740215f3a3b10
+    Signed-off-by: srinivas pandruvada <srinivas.pandruvada@intel.com>
+    Signed-off-by: Andrew Boie <andrew.p.boie@intel.com>
+
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index 7f251dd..41dad57 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -429,6 +429,13 @@ static void acpi_pm_finish(void)
+        pwr_btn_dev = bus_find_device(&acpi_bus_type, NULL, NULL,
+                                      find_powerf_dev);
+        if (pwr_btn_dev) {
++#ifdef CONFIG_ACPI_RESUME_POWER_BUTTON_EVENT
++               struct acpi_device *device = to_acpi_device(pwr_btn_dev);
++               if (device->driver && device->driver->ops.notify) {
++                       device->driver->ops.notify(device,
++                                               ACPI_BUTTON_NOTIFY_STATUS);
++               }
++#endif
+                pm_wakeup_event(pwr_btn_dev, 0);
+                put_device(pwr_btn_dev);
+        }
+
+====================================================
+1: drivers/android/binder.c
+
+对性能有一定影响
+
+commit 00e61429cc81371edc3ae30a57c9472883cfa859
+Author: Riley Andrews <riandrews@google.com>
+Date:   Fri Sep 26 17:36:36 2014 -0700
+
+    android: binder: Change binder mutex to rtmutex.
+    
+    Surfaceflinger uses binder heavily to receive/send frames from applications
+    while compositing the screen. Change the binder mutex to an rt mutex to minimize
+    while compositing the screen. Change the binder mutex to an rt mutex to minimize
+    instances where high priority surfaceflinger binder work is blocked by lower
+    priority binder ipc.
+    
+    Change-Id: If7429040641d6e463f20301ec14f02ecf6b0da36
+    Signed-off-by: Riley Andrews <riandrews@google.com>
+
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index de14814..fa5344c 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -26,6 +26,7 @@
+ #include <linux/miscdevice.h>
+ #include <linux/mm.h>
+ #include <linux/module.h>
++#include <linux/rtmutex.h>
+ #include <linux/mutex.h>
+ #include <linux/nsproxy.h>
+ #include <linux/poll.h>
+@@ -46,7 +47,7 @@
+ #include <uapi/linux/android/binder.h>
+ #include "binder_trace.h"
+ 
+-static DEFINE_MUTEX(binder_main_lock);
++static DEFINE_RT_MUTEX(binder_main_lock);
+ static DEFINE_MUTEX(binder_deferred_lock);
+ static DEFINE_MUTEX(binder_mmap_lock);
+ 
+@@ -426,14 +427,14 @@ static long task_close_fd(struct binder_proc *proc, unsigned int fd)
+ static inline void binder_lock(const char *tag)
+ {
+        trace_binder_lock(tag);
+-       mutex_lock(&binder_main_lock);
++       rt_mutex_lock(&binder_main_lock);
+        trace_binder_locked(tag);
+ }
+ 
+ static inline void binder_unlock(const char *tag)
+ {
+        trace_binder_unlock(tag);
+-       mutex_unlock(&binder_main_lock);
++       rt_mutex_unlock(&binder_main_lock);
+ }
+ 
+ static void binder_set_nice(long nice)
+
+    
+====================================================
+1: drivers/base/power/main.c
+aosp也改了，但and-x86没有改原有的，改的是自己的
+
+增加了watchdog timer
+
+commit 9fa809bea43f1368a2eb465f9feed794a6f6e002
+Author: Benoit Goby <benoit@android.com>
+Date:   Thu Aug 13 09:40:42 2009 -0700
+
+    drivers: power: Add watchdog timer to catch drivers which lockup during suspend.
+    
+    Rather than hard-lock the kernel, dump the suspend thread stack and
+    BUG() when a driver takes too long to suspend.  The timeout is set
+    to 12 seconds to be longer than the usbhid 10 second timeout.
+    
+    Exclude from the watchdog the time spent waiting for children that
+    are resumed asynchronously and time every device, whether or not they
+    resumed synchronously.
+    
+    Change-Id: Ifd211c06b104860c2fee6eecfe0d61774aa4508a
+    Original-author: San Mehat <san@google.com>
+    Signed-off-by: Benoit Goby <benoit@android.com>
+
+diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
+index 9717d5f..ec5b42c 100644
+--- a/drivers/base/power/main.c
++++ b/drivers/base/power/main.c
+@@ -58,6 +58,12 @@ struct suspend_stats suspend_stats;
+ static DEFINE_MUTEX(dpm_list_mtx);
+ static pm_message_t pm_transition;
+ 
++static void dpm_drv_timeout(unsigned long data);
++struct dpm_drv_wd_data {
++       struct device *dev;
++       struct task_struct *tsk;
++};
++
+ static int async_error;
+ 
+ static char *pm_verb(int event)
+@@ -828,6 +834,30 @@ static void async_resume(void *data, async_cookie_t cookie)
+ }
+ 
+ /**
++ *     dpm_drv_timeout - Driver suspend / resume watchdog handler
++ *     @data: struct device which timed out
++ *
++ *     Called when a driver has timed out suspending or resuming.
++ *     There's not much we can do here to recover so
++ *     BUG() out for a crash-dump
++ *
++ */
++static void dpm_drv_timeout(unsigned long data)
++{
++       struct dpm_drv_wd_data *wd_data = (void *)data;
++       struct device *dev = wd_data->dev;
++       struct task_struct *tsk = wd_data->tsk;
++
++       printk(KERN_EMERG "**** DPM device timeout: %s (%s)\n", dev_name(dev),
++              (dev->driver ? dev->driver->name : "no driver"));
++
++       printk(KERN_EMERG "dpm suspend stack:\n");
++       show_stack(tsk, NULL);
++
++       BUG();
++}
++
++/**
+  * dpm_resume - Execute "resume" callbacks for non-sysdev devices.
+  * @state: PM transition of the system being carried out.
+  *
+@@ -1336,6 +1366,8 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+        pm_callback_t callback = NULL;
+        char *info = NULL;
+        int error = 0;
++       struct timer_list timer;
++       struct dpm_drv_wd_data data;
+        DECLARE_DPM_WATCHDOG_ON_STACK(wd);
+ 
+        dpm_wait_for_children(dev, async);
+@@ -1360,6 +1392,14 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+        if (dev->power.syscore)
+                goto Complete;
+ 
++       data.dev = dev;
++       data.tsk = get_current();
++       init_timer_on_stack(&timer);
++       timer.expires = jiffies + HZ * 12;
++       timer.function = dpm_drv_timeout;
++       timer.data = (unsigned long)&data;
++       add_timer(&timer);
++
+        if (dev->power.direct_complete) {
+                if (pm_runtime_status_suspended(dev)) {
+                        pm_runtime_disable(dev);
+@@ -1439,6 +1479,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+        device_unlock(dev);
+        dpm_watchdog_clear(&wd);
+ 
++       del_timer_sync(&timer);
++       destroy_timer_on_stack(&timer);
++
+  Complete:
+        complete_all(&dev->power.completion);
+        if (error)
+====================================================
+1: drivers/base/bus.c core.c 修改的是一样的commit id
+
+commit 17d8375257975043090818150e4bf84de4f2e2ae
+Author: Daniel Leung <daniel.leung@intel.com>
+Date:   Thu Aug 30 13:06:16 2012 -0700
+
+    [DO NOT UPSTREAM] Skip creating subsystem/ in sysfs nodes
+    
+    Some not-so-well-designed Android apps try to recursively read
+    the sysfs nodes, e.g., cpu information. The subsystem/ node
+    sometimes is a symlink back to itself, and this causes these
+    apps to run out of memory iterating all the nodes.
+    
+    This patch skips the creation of the subsystem nodes if it is
+    building for Android devices. There should not be any ill-effects
+    as Android userspace does not look at the subsystem nodes.
+    
+    Issue: AXIA-629
+    Change-Id: I748c8b2fde85161e55b006319d46e8e6bbe4eb43
+    Signed-off-by: Daniel Leung <daniel.leung@intel.com>
+
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index 876bae5..dcf53f8 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -520,10 +520,12 @@ int bus_add_device(struct device *dev)
+                                                &dev->kobj, dev_name(dev));
+                if (error)
+                        goto out_id;
++#ifndef CONFIG_ANDROID
+                error = sysfs_create_link(&dev->kobj,
+                                &dev->bus->p->subsys.kobj, "subsystem");
+                if (error)
+                        goto out_subsys;
++#endif
+                klist_add_tail(&dev->p->knode_bus, &bus->p->klist_devices);
+        }
+        return 0;
+
+
+====================================================
+1: driver/gpio/gpiolib.c
+aosp也改了，但and-x86没有改原有的，改的是自己的
+commit dde5d98a45294e47e127ded53ae5de4df7fd6548
+Author: Shobhit Kumar <shobhit.kumar@intel.com>
+Date:   Fri Apr 10 14:09:12 2015 +0530
+
+    drivers/gpio/gpiolib: Add support for removing registered consumer lookup table
+    
+    In case we unload and load a driver module again that is registering a
+    lookup table, without this it will result in multiple entries. Provide
+    an option to remove the lookup table on driver unload
+    
+    v2: Ccing maintainers
+    
+    Cc: Samuel Ortiz <sameo@linux.intel.com>
+    Cc: Linus Walleij <linus.walleij@linaro.org>
+    Cc: Alexandre Courbot <gnurou@gmail.com>
+    Cc: Thierry Reding <thierry.reding@gmail.com>
+    Signed-off-by: Shobhit Kumar <shobhit.kumar@intel.com>
+
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index 1ca9295..8dd2809 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -1655,6 +1655,19 @@ void gpiod_add_lookup_table(struct gpiod_lookup_table *table)
+        mutex_unlock(&gpio_lookup_lock);
+ }
+ 
++/**
++ * gpiod_remove_lookup_table() - unregister GPIO device consumers
++ * @table: table of consumers to unregister
++ */
++void gpiod_remove_lookup_table(struct gpiod_lookup_table *table)
++{
++       mutex_lock(&gpio_lookup_lock);
++
++       list_del(&table->list);
++
++       mutex_unlock(&gpio_lookup_lock);
++}
++
+ static struct gpio_desc *of_find_gpio(struct device *dev, const char *con_id,
+                                      unsigned int idx,
+                                      enum gpio_lookup_flags *flags)
+
+====================================================
+1: drivers/gpio/gpio-crystalcove.c
+commit aeb2017c1f5d02e4bb636f7db211612baa7fc0f2
+Author: Aaron Lu <aaron.lu@intel.com>
+Date:   Thu May 28 10:58:49 2015 +0800
+
+    gpio: crystalcove: set IRQCHIP_SKIP_SET_WAKE for the irqchip
+    
+    commit 61e749d7e1627d375156553ea0ae83c4f6bb5a9b upstream.
+    
+    The CrystalCove GPIO irqchip doesn't have irq_set_wake callback defined
+    so we should set IRQCHIP_SKIP_SET_WAKE for it or it would cause an irq
+    desc's wake_depth unbalanced warning during system resume phase from the
+    gpio_keys driver, which is the driver for the power button of the ASUS
+    T100 laptop.
+    
+    Signed-off-by: Aaron Lu <aaron.lu@intel.com>
+    Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/gpio/gpio-crystalcove.c b/drivers/gpio/gpio-crystalcove.c
+index 3d9e08f..57cd089 100644
+--- a/drivers/gpio/gpio-crystalcove.c
++++ b/drivers/gpio/gpio-crystalcove.c
+@@ -250,6 +250,7 @@ static struct irq_chip crystalcove_irqchip = {
+        .irq_set_type           = crystalcove_irq_type,
+        .irq_bus_lock           = crystalcove_bus_lock,
+        .irq_bus_sync_unlock    = crystalcove_bus_sync_unlock,
++       .flags                  = IRQCHIP_SKIP_SET_WAKE,
+ };
+ 
+ static irqreturn_t crystalcove_gpio_irq_handler(int irq, void *data)
+
+commit 8fc783db710cfcbab00d727a8797ef14d8477646
+Author: Shobhit Kumar <shobhit.kumar@intel.com>
+Date:   Thu Mar 12 22:01:26 2015 +0530
+
+    gpio/crystalcove: Add additional GPIO for Panel control
+    
+    Export PANEL_EN/DISABLE (offset 0x52) as additional GPIO. Needed
+    by display driver to enable the DSI panel on BYT platform where
+    the Panel EN/Disable control is routed thorugh CRC PMIC
+    
+    CC: Samuel Ortiz <sameo@linux.intel.com>
+    Cc: Linus Walleij <linus.walleij@linaro.org>
+    Cc: Alexandre Courbot <gnurou@gmail.com>
+    Cc: Thierry Reding <thierry.reding@gmail.com>
+    Acked-by: Daniel Vetter <daniel@ffwll.ch>
+    Signed-off-by: Shobhit Kumar <shobhit.kumar@intel.com>
+    Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+
+diff --git a/drivers/gpio/gpio-crystalcove.c b/drivers/gpio/gpio-crystalcove.c
+index 3d9e08f..91a7ffe 100644
+--- a/drivers/gpio/gpio-crystalcove.c
++++ b/drivers/gpio/gpio-crystalcove.c
+@@ -24,7 +24,7 @@
+ #include <linux/mfd/intel_soc_pmic.h>
+ 
+ #define CRYSTALCOVE_GPIO_NUM   16
+-#define CRYSTALCOVE_VGPIO_NUM  94
++#define CRYSTALCOVE_VGPIO_NUM  95
+ 
+ #define UPDATE_IRQ_TYPE                BIT(0)
+ #define UPDATE_IRQ_MASK                BIT(1)
+@@ -39,6 +39,7 @@
+ #define GPIO0P0CTLI            0x33
+ #define GPIO1P0CTLO            0x3b
+ #define GPIO1P0CTLI            0x43
++#define GPIOPANELCTL           0x52
+ 
+ #define CTLI_INTCNT_DIS                (0)
+ #define CTLI_INTCNT_NE         (1 << 1)
+@@ -93,6 +94,10 @@ static inline int to_reg(int gpio, enum ctrl_register reg_type)
+ {
+        int reg;
+ 
++       if (gpio == 94) {
++               return GPIOPANELCTL;
++       }
++
+        if (reg_type == CTRL_IN) {
+                if (gpio < 8)
+                        reg = GPIO0P0CTLI;
+
+commit e733a2fb8cbcff0747108cb529ffb4e4a00465ac
+Author: Aaron Lu <aaron.lu@intel.com>
+Date:   Mon Jan 12 10:09:32 2015 +0800
+commit 8fc783db710cfcbab00d727a8797ef14d8477646
+Author: Shobhit Kumar <shobhit.kumar@intel.com>
+Date:   Thu Mar 12 22:01:26 2015 +0530
+
+    gpio/crystalcove: Add additional GPIO for Panel control
+    
+    Export PANEL_EN/DISABLE (offset 0x52) as additional GPIO. Needed
+    by display driver to enable the DSI panel on BYT platform where
+    the Panel EN/Disable control is routed thorugh CRC PMIC
+    
+    CC: Samuel Ortiz <sameo@linux.intel.com>
+    Cc: Linus Walleij <linus.walleij@linaro.org>
+    Cc: Alexandre Courbot <gnurou@gmail.com>
+    Cc: Thierry Reding <thierry.reding@gmail.com>
+    Acked-by: Daniel Vetter <daniel@ffwll.ch>
+    Signed-off-by: Shobhit Kumar <shobhit.kumar@intel.com>
+    Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+
+diff --git a/drivers/gpio/gpio-crystalcove.c b/drivers/gpio/gpio-crystalcove.c
+index 3d9e08f..91a7ffe 100644
+--- a/drivers/gpio/gpio-crystalcove.c
++++ b/drivers/gpio/gpio-crystalcove.c
+@@ -24,7 +24,7 @@
+ #include <linux/mfd/intel_soc_pmic.h>
+ 
+ #define CRYSTALCOVE_GPIO_NUM   16
+-#define CRYSTALCOVE_VGPIO_NUM  94
++#define CRYSTALCOVE_VGPIO_NUM  95
+ 
+ #define UPDATE_IRQ_TYPE                BIT(0)
+ #define UPDATE_IRQ_MASK                BIT(1)
+@@ -39,6 +39,7 @@
+ #define GPIO0P0CTLI            0x33
+ #define GPIO1P0CTLO            0x3b
+ #define GPIO1P0CTLI            0x43
++#define GPIOPANELCTL           0x52
+ 
+ #define CTLI_INTCNT_DIS                (0)
+ #define CTLI_INTCNT_NE         (1 << 1)
+@@ -93,6 +94,10 @@ static inline int to_reg(int gpio, enum ctrl_register reg_type)
+ {
+        int reg;
+ 
++       if (gpio == 94) {
++               return GPIOPANELCTL;
++       }
++
+        if (reg_type == CTRL_IN) {
+                if (gpio < 8)
+                        reg = GPIO0P0CTLI;
+
+====================================================
+1: drivers/gpu/drm/i915/intel_display.c _drv.h _dsi.[ch], _panel.c
+这部分aosp都没有，应该是android-x86特有的
+
+====================================================
+1: drivers/hid/hid-ids.h
+特定mouse会有用
+commit 66997b1d6c47e793556da41877262f5ac92e8d4d
+Author: Oliver Neukum <oneukum@suse.de>
+Date:   Wed Mar 25 15:38:31 2015 +0100
+
+    HID: add quirk for PIXART OEM mouse used by HP
+    
+    commit b70b82580248b5393241c986082842ec05a2b7d7 upstream.
+    
+    This mouse is also known under other IDs. It needs the quirk or will disconnect
+    in runlevel 1 or 3.
+    
+    Signed-off-by: Oliver Neukum <oneukum@suse.de>
+    Signed-off-by: Jiri Kosina <jkosina@suse.cz>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index 7ace715..7fe5590 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -461,6 +461,7 @@
+ 
+ #define USB_VENDOR_ID_HP               0x03f0
+ #define USB_PRODUCT_ID_HP_LOGITECH_OEM_USB_OPTICAL_MOUSE       0x0a4a
++#define USB_PRODUCT_ID_HP_PIXART_OEM_USB_OPTICAL_MOUSE         0x134a
+ 
+ #define USB_VENDOR_ID_HUION            0x256c
+ #define USB_DEVICE_ID_HUION_TABLET     0x006e
+
+====================================================
+1: drivers/hid/hid-input.c
+特定asus的键盘，不一定重要
+
+commit a1138d3d498b5c0c47362c63b0661dd88ec46690
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Fri Sep 12 21:48:27 2014 +0800
+
+    HID: input: add asus vendor keys
+
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index 052869d..98b38d2 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -483,7 +483,8 @@ static void hidinput_configure_usage(struct hid_input *hidinput, struct hid_fiel
+ 
+        field->hidinput = hidinput;
+ 
+-       if (field->flags & HID_MAIN_ITEM_CONSTANT)
++       if ((field->flags & HID_MAIN_ITEM_CONSTANT) &&
++                       (usage->hid & HID_USAGE_PAGE) != HID_UP_ASUSVENDOR)
+                goto ignore;
+ 
+        /* Ignore if report count is out of bounds. */
+@@ -934,6 +935,17 @@ static void hidinput_configure_usage(struct hid_input *hidinput, struct hid_fiel
+                }
+                break;
+ 
++       case HID_UP_ASUSVENDOR:
++               switch (usage->hid & HID_USAGE) {
++               case 0x06C: map_key_clear(KEY_SLEEP);           break; /* Fn+F1: Sleep */
++               case 0x088: map_key_clear(KEY_WLAN);            break; /* Fn+F2: Wifi & BT */
++               case 0x010: map_key_clear(KEY_BRIGHTNESSDOWN);  break; /* Fn+F5: Brightness down */
++               case 0x020: map_key_clear(KEY_BRIGHTNESSUP);    break; /* Fn+F6: Brightness up */
++               case 0x06B: map_key_clear(KEY_F24);             break; /* Fn+F9: Touchpad */
++               default: goto ignore;
++               }
++               break;
++
+        default:
+        unknown:
+                if (field->report_size == 1) {
+
+====================================================
+1： drivers/hid/hid-ntrig.c
+这是android-x86特有的
+commit facc2de8d9c835519f25ea6611bc7a4115efdecb
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Fri Aug 8 19:41:54 2014 +0000
+
+    HID: ntrig: revert to older version
+    
+    It is said the version works better for android-x86.
+    It's provided by Yo Abe <abe.geel@gmail.com>.
+
+diff --git a/drivers/hid/hid-ntrig.c b/drivers/hid/hid-ntrig.c
+index 600f207..bd04ca6 100644
+--- a/drivers/hid/hid-ntrig.c
++++ b/drivers/hid/hid-ntrig.c
+@@ -859,43 +859,12 @@ not_claimed_input:
+        return 1;
+ }
+ 
+-static void ntrig_input_configured(struct hid_device *hid,
+-               struct hid_input *hidinput)
+-
+-{
+-       struct input_dev *input = hidinput->input;
+-
+-       if (hidinput->report->maxfield < 1)
+-               return;
+-
+-       switch (hidinput->report->field[0]->application) {
+-       case HID_DG_PEN:
+-               input->name = "N-Trig Pen";
+-               break;
+-       case HID_DG_TOUCHSCREEN:
+-               /* These keys are redundant for fingers, clear them
+-                * to prevent incorrect identification */
+-               __clear_bit(BTN_TOOL_PEN, input->keybit);
+-               __clear_bit(BTN_TOOL_FINGER, input->keybit);
+-               __clear_bit(BTN_0, input->keybit);
+-               __set_bit(BTN_TOOL_DOUBLETAP, input->keybit);
+-               /*
+-                * The physical touchscreen (single touch)
+-                * input has a value for physical, whereas
+-                * the multitouch only has logical input
+-                * fields.
+-                */
+-               input->name = (hidinput->report->field[0]->physical) ?
+-                                                       "N-Trig Touchscreen" :
+-                                                       "N-Trig MultiTouch";
+-               break;
+-       }
+-}
+-
+ static int ntrig_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ {
+        int ret;
+        struct ntrig_data *nd;
++       struct hid_input *hidinput;
++       struct input_dev *input;
+        struct hid_report *report;
+ 
+        if (id->driver_data)
+@@ -914,10 +883,10 @@ static int ntrig_probe(struct hid_device *hdev, const struct hid_device_id *id)
+        nd->activate_slack = activate_slack;
+        nd->act_state = activate_slack;
+        nd->deactivate_slack = -deactivate_slack;
+-       nd->sensor_logical_width = 1;
+-       nd->sensor_logical_height = 1;
+-       nd->sensor_physical_width = 1;
+-       nd->sensor_physical_height = 1;
++       nd->sensor_logical_width = 0;
++       nd->sensor_logical_height = 0;
++       nd->sensor_physical_width = 0;
++       nd->sensor_physical_height = 0;
+ 
+        hid_set_drvdata(hdev, nd);
+ 
+@@ -933,6 +902,38 @@ static int ntrig_probe(struct hid_device *hdev, const struct hid_device_id *id)
+                goto err_free;
+        }
+ 
++
++       list_for_each_entry(hidinput, &hdev->inputs, list) {
++               if (hidinput->report->maxfield < 1)
++                       continue;
++
++               input = hidinput->input;
++               switch (hidinput->report->field[0]->application) {
++               case HID_DG_PEN:
++                       input->name = "N-Trig Pen";
++                       break;
++               case HID_DG_TOUCHSCREEN:
++                       /* These keys are redundant for fingers, clear them
++                        * to prevent incorrect identification */
++                       __clear_bit(BTN_TOOL_PEN, input->keybit);
++                       __clear_bit(BTN_TOOL_FINGER, input->keybit);
++                       __clear_bit(BTN_0, input->keybit);
++                       __set_bit(BTN_TOOL_DOUBLETAP, input->keybit);
++                       /*
++                        * The physical touchscreen (single touch)
++                        * input has a value for physical, whereas
++                        * the multitouch only has logical input
++                        * fields.
++                        */
++                       input->name =
++                               (hidinput->report->field[0]
++                                ->physical) ?
++                               "N-Trig Touchscreen" :
++                               "N-Trig MultiTouch";
++                       break;
++               }
++       }
++
+        /* This is needed for devices with more recent firmware versions */
+        report = hdev->report_enum[HID_FEATURE_REPORT].report_id_hash[0x0a];
+        if (report) {
+@@ -1023,7 +1024,6 @@ static struct hid_driver ntrig_driver = {
+        .remove = ntrig_remove,
+        .input_mapping = ntrig_input_mapping,
+        .input_mapped = ntrig_input_mapped,
+-       .input_configured = ntrig_input_configured,
+        .usage_table = ntrig_grabbed_usages,
+        .event = ntrig_event,
+ };
+
+====================================================
+1: drivers/media/usb/uvc/uvc_driver.c _video.c uvcvideo.h
+
+如果有uvc设备，这个有用，用于休眠与恢复   
+
+commit b7c6c9b2bd347d057639ceaad92dd0e5b814ddc1
+Author: juntingwang <Junting.Wang@windriver.com>
+Date:   Mon Jan 7 18:22:57 2013 +0800
+
+    Camera: Fix camera problem when reboot
+    
+    Fix problem camera led remains active after reboot
+    
+    The camera is an USB camera. When system reboot the usb
+    bus is not powered off, so camera remains active. Camera
+    led will be closed untill the system init and reset devices.
+    
+    To resolve this bug, we need to register a reboot notifier
+    in camera driver, so that camera can receive "restart" notifier
+    when system reboot, it will call notifier callback function
+    to close the camera led.
+    
+    Issue: AXIA-1417
+    Change-Id: Ia6cc19d645419f7dfea9e3fa4ebb67b583eaddda
+    Signed-off-by: juntingwang <Junting.Wang@windriver.com>
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index cf27006..1f06312 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1855,6 +1855,35 @@ static int uvc_register_chains(struct uvc_device *dev)
+        return 0;
+ }
+ 
++static void uvc_shutdown(struct notifier_block *nb)
++{
++       struct uvc_device *dev = container_of(nb, struct uvc_device, uvc_notifier);
++       struct uvc_streaming *stream;
++
++       list_for_each_entry(stream, &dev->streams, list) {
++               if (stream->vdev == NULL)
++                       continue;
++               uvc_video_shutdown(stream);
++               stream->vdev = NULL;
++       }
++}
++
++static int uvc_system_reboot(struct notifier_block *nb, unsigned long event, void *unused)
++{
++       switch (event) {
++       case SYS_RESTART:
++               uvc_shutdown(nb);
++               break;
++       default:
++               break;
++       }
++       return NOTIFY_DONE;
++}
++
++static struct notifier_block uvc_reboot_notifier = {
++       .notifier_call     = uvc_system_reboot,
++};
++
+ /* ------------------------------------------------------------------------
+  * USB probe, disconnect, suspend and resume
+  */
+@@ -1890,6 +1919,7 @@ static int uvc_probe(struct usb_interface *intf,
+        dev->intfnum = intf->cur_altsetting->desc.bInterfaceNumber;
+        dev->quirks = (uvc_quirks_param == -1)
+                    ? id->driver_info : uvc_quirks_param;
++       dev->uvc_notifier = uvc_reboot_notifier;
+ 
+        if (udev->product != NULL)
+                strlcpy(dev->name, udev->product, sizeof dev->name);
+@@ -1959,6 +1989,11 @@ static int uvc_probe(struct usb_interface *intf,
+                        "supported.\n", ret);
+        }
+ 
++       /* add ourselves to the reboot_notifier_list */
++       ret = register_reboot_notifier(&dev->uvc_notifier);
++       if (ret != 0)
++               printk(KERN_INFO "can't register reboot notifier\n");
++
+        uvc_trace(UVC_TRACE_PROBE, "UVC device initialized.\n");
+        usb_enable_autosuspend(udev);
+        return 0;
+@@ -1983,6 +2018,7 @@ static void uvc_disconnect(struct usb_interface *intf)
+ 
+        dev->state |= UVC_DEV_DISCONNECTED;
+ 
++       unregister_reboot_notifier(&dev->uvc_notifier);
+        uvc_unregister_video(dev);
+ }
+ 
+
+====================================================
+1: drivers/mfd/intel_soc_pmic_core.c intel_soc_pmic_crc.c
+如果有这intel设备，也许有用
+
+commit a5379206535c976266c2012e4e622475865820b9
+Author: Shobhit Kumar <shobhit.kumar@intel.com>
+Date:   Fri Mar 6 15:10:52 2015 +0530
+
+    drivers/mfd: ADD PWM lookup table for CRC PMIC based PWM
+    
+    On some BYT PLatform the PWM is controlled using CRC PMIC. Add a lookup
+    entry for the same to be used by the consumer (Intel GFX)
+    
+    v2: Remove the lookup table on driver unload (Thierry)
+    
+    CC: Samuel Ortiz <sameo@linux.intel.com>
+    Cc: Linus Walleij <linus.walleij@linaro.org>
+    Cc: Alexandre Courbot <gnurou@gmail.com>
+    Cc: Thierry Reding <thierry.reding@gmail.com>
+    Signed-off-by: Shobhit Kumar <shobhit.kumar@intel.com>
+
+diff --git a/drivers/mfd/intel_soc_pmic_core.c b/drivers/mfd/intel_soc_pmic_core.c
+index 73d262e..cc303bc 100644
+--- a/drivers/mfd/intel_soc_pmic_core.c
++++ b/drivers/mfd/intel_soc_pmic_core.c
+@@ -25,6 +25,7 @@
+ #include <linux/regmap.h>
+ #include <linux/mfd/intel_soc_pmic.h>
+ #include <linux/gpio/machine.h>
++#include <linux/pwm.h>
+ #include "intel_soc_pmic_core.h"
+ 
+ /* Lookup table for the Panel Enable/Disable line as GPIO signals */
+@@ -37,6 +38,11 @@ static struct gpiod_lookup_table panel_gpio_table = {
+        },
+ };
+ 
++/* PWM consumed by the Intel GFX */
++static struct pwm_lookup crc_pwm_lookup[] = {
++       PWM_LOOKUP("crystal_cove_pwm", 0, "0000:00:02.0", "pwm_backlight", 0, PWM_POLARITY_NORMAL),
++};
++
+ /*
+  * On some boards the PMIC interrupt may come from a GPIO line.
+  * Try to lookup the ACPI table and see if such connection exists. If not,
+@@ -99,6 +105,9 @@ static int intel_soc_pmic_i2c_probe(struct i2c_client *i2c,
+        /* Add lookup table binding for Panel Control to the GPIO Chip */
+        gpiod_add_lookup_table(&panel_gpio_table);
+ 
++       /* Add lookup table for crc-pwm */
++       pwm_add_table(crc_pwm_lookup, ARRAY_SIZE(crc_pwm_lookup));
++
+        ret = mfd_add_devices(dev, -1, config->cell_dev,
+                              config->n_cell_devs, NULL, 0,
+                              regmap_irq_get_domain(pmic->irq_chip_data));
+@@ -121,6 +130,9 @@ static int intel_soc_pmic_i2c_remove(struct i2c_client *i2c)
+        /* Remove lookup table for Panel Control from the GPIO Chip */
+        gpiod_remove_lookup_table(&panel_gpio_table);
+ 
++       /* remove crc-pwm lookup table */
++       pwm_remove_table(crc_pwm_lookup, ARRAY_SIZE(crc_pwm_lookup));
++
+        mfd_remove_devices(&i2c->dev);
+ 
+        return 0;
+
+commit 8660109d65f9c80298b7d02651eaac71a00dfa98
+Author: Shobhit Kumar <shobhit.kumar@intel.com>
+Date:   Wed Mar 4 13:24:22 2015 +0530
+
+    drivers/mfd: Add lookup table for Panel Control as GPIO signal
+    
+    On some Intel SoC platforms, the panel enable/disable signals are
+    controlled by CRC PMIC. Add those control as a new GPIO in a lookup
+    table for gpio-crystalcove chip during CRC driver load
+    
+    v2: Make the lookup table static (Thierry)
+        Remove the lookup table during driver remove (Thierry)
+    
+    CC: Samuel Ortiz <sameo@linux.intel.com>
+    Cc: Linus Walleij <linus.walleij@linaro.org>
+    Cc: Alexandre Courbot <gnurou@gmail.com>
+    Cc: Thierry Reding <thierry.reding@gmail.com>
+    Signed-off-by: Shobhit Kumar <shobhit.kumar@intel.com>
+
+diff --git a/drivers/mfd/intel_soc_pmic_core.c b/drivers/mfd/intel_soc_pmic_core.c
+index 80cef04..73d262e 100644
+--- a/drivers/mfd/intel_soc_pmic_core.c
++++ b/drivers/mfd/intel_soc_pmic_core.c
+@@ -24,8 +24,19 @@
+ #include <linux/acpi.h>
+ #include <linux/regmap.h>
+ #include <linux/mfd/intel_soc_pmic.h>
++#include <linux/gpio/machine.h>
+ #include "intel_soc_pmic_core.h"
+ 
++/* Lookup table for the Panel Enable/Disable line as GPIO signals */
++static struct gpiod_lookup_table panel_gpio_table = {
++       /* Intel GFX is consumer */
++       .dev_id = "0000:00:02.0",
++       .table = {
++               /* Panel EN/DISABLE */
++               GPIO_LOOKUP("gpio_crystalcove", 94, "panel", GPIO_ACTIVE_HIGH),
++       },
++};
++
+ /*
+  * On some boards the PMIC interrupt may come from a GPIO line.
+  * Try to lookup the ACPI table and see if such connection exists. If not,
+@@ -85,6 +96,9 @@ static int intel_soc_pmic_i2c_probe(struct i2c_client *i2c,
+        if (ret)
+                dev_warn(dev, "Can't enable IRQ as wake source: %d\n", ret);
+ 
++       /* Add lookup table binding for Panel Control to the GPIO Chip */
++       gpiod_add_lookup_table(&panel_gpio_table);
++
+        ret = mfd_add_devices(dev, -1, config->cell_dev,
+                              config->n_cell_devs, NULL, 0,
+                              regmap_irq_get_domain(pmic->irq_chip_data));
+@@ -104,6 +118,9 @@ static int intel_soc_pmic_i2c_remove(struct i2c_client *i2c)
+ 
+        regmap_del_irq_chip(pmic->irq, pmic->irq_chip_data);
+ 
++       /* Remove lookup table for Panel Control from the GPIO Chip */
++       gpiod_remove_lookup_table(&panel_gpio_table);
++
+        mfd_remove_devices(&i2c->dev);
+ 
+        return 0;
+====================================================
+2: kernel 目录相关
+涉及 kernel/cpu.c fork.c sysctl.c
+ git log --stat -1 025e5a9c76e40588914108cffd4a7ae2af341723
+commit 025e5a9c76e40588914108cffd4a7ae2af341723
+Author: Todd Poynor <toddpoynor@google.com>
+Date:   Wed Jun 15 17:21:57 2011 -0700
+
+    Move x86_64 idle notifiers to generic
+    
+    Move the x86_64 idle notifiers originally by Andi Kleen and Venkatesh
+    Pallipadi to generic.
+    
+    Change-Id: Idf29cda15be151f494ff245933c12462643388d5
+    Acked-by: Nicolas Pitre <nicolas.pitre@linaro.org>
+    Signed-off-by: Todd Poynor <toddpoynor@google.com>
+
+ arch/x86/include/asm/idle.h |  7 -------
+ arch/x86/kernel/process.c   | 17 ++---------------
+ include/linux/cpu.h         |  7 +++++++
+ kernel/cpu.c                | 20 ++++++++++++++++++++
+ 4 files changed, 29 insertions(+), 22 deletions(-)
+chyyuu@chyyuu-X599:/backup/android-related/android-repo/kernel$ git log --stat -1 b8d042af0e1614e94f0220278e5dbf57cb2deb1b
+commit b8d042af0e1614e94f0220278e5dbf57cb2deb1b
+Author: San Mehat <san@google.com>
+Date:   Thu May 6 15:37:55 2010 -0700
+
+    sched: Add a generic notifier when a task struct is about to be freed
+    
+    This patch adds a notifier which can be used by subsystems that may
+    be interested in when a task has completely died and is about to
+    have it's last resource freed.
+    
+      The Android lowmemory killer uses this to determine when a task
+    it has killed has finally given up its goods.
+    
+    Signed-off-by: San Mehat <san@google.com>
+
+ include/linux/sched.h |  3 +++
+ kernel/fork.c         | 16 ++++++++++++++++
+ 2 files changed, 19 insertions(+)
+ 
+ 
+ git log --stat -1 03e34a0487a9461d3c0e921ee16c2ad2ceaf0300
+commit 03e34a0487a9461d3c0e921ee16c2ad2ceaf0300
+Author: Rik van Riel <riel@redhat.com>
+Date:   Thu Sep 1 15:26:50 2011 -0400
+
+    add extra free kbytes tunable
+    
+    Add a userspace visible knob to tell the VM to keep an extra amount
+    of memory free, by increasing the gap between each zone's min and
+    low watermarks.
+    
+    This is useful for realtime applications that call system
+    calls and have a bound on the number of allocations that happen
+    in any short time period.  In this application, extra_free_kbytes
+    would be left at an amount equal to or larger than than the
+    maximum number of allocations that happen in any burst.
+    
+    It may also be useful to reduce the memory use of virtual
+    machines (temporarily?), in a way that does not cause memory
+    fragmentation like ballooning does.
+    
+    [ccross]
+    Revived for use on old kernels where no other solution exists.
+    The tunable will be removed on kernels that do better at avoiding
+    direct reclaim.
+    
+    Change-Id: I765a42be8e964bfd3e2886d1ca85a29d60c3bb3e
+    Signed-off-by: Rik van Riel<riel@redhat.com>
+    Signed-off-by: Colin Cross <ccross@android.com>
+
+ Documentation/sysctl/vm.txt | 16 ++++++++++++++++
+ kernel/sysctl.c             |  9 +++++++++
+ mm/page_alloc.c             | 32 +++++++++++++++++++++++++-------
+ 3 files changed, 50 insertions(+), 7 deletions(-)
+
+====================================================
+1 or 2: mm 目录相关
+
+1: mm/page_alloc.c 与之前的kernel/sysctl.c 是一个git commit，AOSP也有一部分
+
+2: shmem.c 属于aosp修改的一部分
+commit 6510a11a509f359b09892f3a6943080b12861af6
+Author: John Stultz <john.stultz@linaro.org>
+Date:   Thu Dec 15 18:51:04 2011 -0800
+
+    ashmem: Add shmem_set_file to mm/shmem.c
+    
+    NOT FOR STAGING
+    This patch re-adds the original shmem_set_file to mm/shmem.c
+    and converts ashmem.c back to using it.
+    
+    CC: Brian Swetland <swetland@google.com>
+    CC: Colin Cross <ccross@android.com>
+    CC: Arve Hjønnevåg <arve@android.com>
+    CC: Dima Zavin <dima@android.com>
+    CC: Robert Love <rlove@google.com>
+    CC: Greg KH <greg@kroah.com>
+    Signed-off-by: John Stultz <john.stultz@linaro.org>
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index cf2d0ca..e0e0d31 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -3394,6 +3394,14 @@ struct file *shmem_file_setup(const char *name, loff_t size, unsigned long flags
+ }
+ EXPORT_SYMBOL_GPL(shmem_file_setup);
+ 
++void shmem_set_file(struct vm_area_struct *vma, struct file *file)
++{
++       if (vma->vm_file)
++               fput(vma->vm_file);
++       vma->vm_file = file;
++       vma->vm_ops = &shmem_vm_ops;
++}
++
+ /**
+  * shmem_zero_setup - setup a shared anonymous mapping
+  * @vma: the vma to be mmapped is prepared by do_mmap_pgoff
+@@ -3407,10 +3415,7 @@ int shmem_zero_setup(struct vm_area_struct *vma)
+        if (IS_ERR(file))
+                return PTR_ERR(file);
+ 
+-       if (vma->vm_file)
+-               fput(vma->vm_file);
+-       vma->vm_file = file;
+-       vma->vm_ops = &shmem_vm_ops;
++       shmem_set_file(vma, file);
+        return 0;
+ }
+
+1: vmscan.c 
+git log --stat -1 c24ef62f55362ef39eab5a91ea3f18c68f0b2faa
+commit c24ef62f55362ef39eab5a91ea3f18c68f0b2faa
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Fri Dec 12 23:42:38 2014 +0800
+
+    mm: vmscan: Add a debug file for shrinkers
+    
+    This patch adds a debugfs file called "shrinker" when read this calls
+    all the shrinkers in the system with nr_to_scan set to zero and prints
+    the result.  These results are the number of objects the shrinkers have
+    available and can thus be used an indication of the total memory
+    that would be availble to the system if a shrink occurred.
+    
+    Change-Id: Ied0ee7caff3d2fc1cb4bb839aaafee81b5b0b143
+    Signed-off-by: Rebecca Schultz Zavin <rebecca@android.com>
+
+ mm/vmscan.c | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
+
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================
+====================================================

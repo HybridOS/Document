@@ -1,0 +1,42 @@
+arch/x86/kernel/  : intel相关的进程，陷入中断相关
+arch/x86/kernel/cpu/ ： intel cpu硬件相关
+block/ ： 通用块设备
+drivers/switch/ : gpio switch相关 GPIO Switch driver
+drivers/acpi/  ： 高级配置和电源管理接口
+drivers/acpi/acpica/ ：The ACPI Component Architecture (ACPICA) 改动小
+drivers/android/ ： binder实现
+drivers/base/  ： 修改bus和core
+drivers/base/power/ ： 增加了dpm_drv_timeout
+drivers/gpio/    :  对gpio的修改
+drivers/gpu/drm/  ： 渲染管理器(Direct Rendering Manager)
+drivers/gpu/drm/i915/ ： i915芯片支持GPU
+drivers/hid/   ： USB HID类设备属于人机交互操作的设备
+drivers/iio/： Industrial I/O subsystem：磁计数，灯光，偏斜测量
+drivers/input/ : 键盘，串口，触屏
+drivers/media/usb/uvc/  ： usb摄像头
+drivers/mfd/ ： 比较杂的小外设Multifunction miscellaneous devices
+drivers/misc/ ： 键盘
+drivers/mmc/ ： MMC/SD/SDIO card support
+drivers/net/ppp/ : ppp链接
+drivers/net/usb/ ： 网络USB
+drivers/net/wireless/ : 无线网卡, ath6kl, ath9k, brcm80211,ipw2x00,mwifiex
+drivers/of/  : Device Tree and Open Firmware支持，小改动
+drivers/platform/x86/ ： x86平台（sony-laptop, surface-button），不太相关
+drivers/pwm/  ： Pulse-Width Modulation (PWM) 脉宽调制支持
+drivers/staging/ ： Realtek 8723B SDIO or SPI WiFi 驱动
+drivers/staging/android/ ： alarm, ashmem,efibc, logger, lowmemorykiller驱动
+drivers/tty/vt/  ： virtual terminal 支持
+fs/  ： eventpoll, select机制修改，小改动
+fs/ext4/ ： iotcl, mballoc 修改， 小改动
+fs/fuse/  : 用户文件系统，小改动
+fs/proc/   ： proc文件系统，小改动
+fs/pstore/ ：  Persistent store support，小改动
+kernel/    ： 硬件无关部分，涉及cpu， fork， power， wakeup, suspend, sysctl, gpu-trace
+mm/  : 修改页分配，共享内存管理，虚存管理
+net/can/  : CAN总线，没啥用吧
+net/ipv4/ : 应该是一个很小的改动，涉及sysfs
+net/rfkill/ : RF switch 小修改
+security/  ： 权限管理，小修改
+security/selinux/ ： selinux 钩子，小修改
+sound/pci/hda/   ： realtek声卡， 小修改
+sound/soc/intel/  : intel的soc声卡，小修改

@@ -1,0 +1,148 @@
+android-kernel-4.0.8/arch/x86/kernel/cpu/intel.c
+android-kernel-4.0.8/arch/x86/kernel/process.c
+android-kernel-4.0.8/arch/x86/kernel/traps.c
+android-kernel-4.0.8/block/genhd.c
+android-kernel-4.0.8/block/partition-generic.c
+android-kernel-4.0.8/drivers/acpi/acpica/utosi.c
+android-kernel-4.0.8/drivers/acpi/button.c
+android-kernel-4.0.8/drivers/acpi/ec.c
+android-kernel-4.0.8/drivers/acpi/sleep.c
+android-kernel-4.0.8/drivers/android/binder.c
+android-kernel-4.0.8/drivers/base/bus.c
+android-kernel-4.0.8/drivers/base/core.c
+android-kernel-4.0.8/drivers/base/power/main.c
+android-kernel-4.0.8/drivers/gpio/gpio-crystalcove.c
+android-kernel-4.0.8/drivers/gpio: gpiodebug.c
+android-kernel-4.0.8/drivers/gpio/gpiolib.c
+android-kernel-4.0.8/drivers/gpio: gpio-valleyview2.c
+android-kernel-4.0.8/drivers/gpu/drm/drm_ioctl.c
+android-kernel-4.0.8/drivers/gpu/drm/i915/intel_display.c
+android-kernel-4.0.8/drivers/gpu/drm/i915/intel_dsi.c
+android-kernel-4.0.8/drivers/gpu/drm/i915/intel_panel.c
+android-kernel-4.0.8/drivers/hid/hid-input.c
+android-kernel-4.0.8/drivers/hid/hid-multitouch.c
+android-kernel-4.0.8/drivers/hid/hid-ntrig.c
+android-kernel-4.0.8/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+android-kernel-4.0.8/drivers/iio/light: cm3218x.c
+android-kernel-4.0.8/drivers/iio/magnetometer/ak8975.c
+android-kernel-4.0.8/drivers/input: keycombo.c
+android-kernel-4.0.8/drivers/input: keyreset.c
+android-kernel-4.0.8/drivers/input/misc: keychord.c
+android-kernel-4.0.8/drivers/input/serio/i8042.c
+android-kernel-4.0.8/drivers/input/touchscreen/goodix.c
+android-kernel-4.0.8/drivers/media/usb/uvc/uvc_driver.c
+android-kernel-4.0.8/drivers/media/usb/uvc/uvc_video.c
+android-kernel-4.0.8/drivers/mfd/arizona-core.c
+android-kernel-4.0.8/drivers/mfd/arizona-i2c.c
+android-kernel-4.0.8/drivers/mfd/arizona-irq.c
+android-kernel-4.0.8/drivers/mfd/arizona-spi.c
+android-kernel-4.0.8/drivers/mfd/intel_soc_pmic_core.c
+android-kernel-4.0.8/drivers/mfd/intel_soc_pmic_crc.c
+android-kernel-4.0.8/drivers/mfd/wm5102-tables.c
+android-kernel-4.0.8/drivers/mfd/wm8350-core.c
+android-kernel-4.0.8/drivers/mfd/wm8350-i2c.c
+android-kernel-4.0.8/drivers/mfd/wm8350-irq.c
+android-kernel-4.0.8/drivers/mfd/wm8400-core.c
+android-kernel-4.0.8/drivers/mfd/wm8994-core.c
+android-kernel-4.0.8/drivers/mfd/wm8994-irq.c
+android-kernel-4.0.8/drivers/mfd/wm8994-regmap.c
+android-kernel-4.0.8/drivers/mfd/wm8997-tables.c
+android-kernel-4.0.8/drivers/misc: vlv2_plat_clock.c
+android-kernel-4.0.8/drivers/mmc/card/block.c
+android-kernel-4.0.8/drivers/mmc/core/core.c
+android-kernel-4.0.8/drivers/mmc/core/host.c
+android-kernel-4.0.8/drivers/mmc/core/mmc.c
+android-kernel-4.0.8/drivers/mmc/core/mmc_ops.c
+android-kernel-4.0.8/drivers/mmc/core/pwrseq.c
+android-kernel-4.0.8/drivers/mmc/core/pwrseq_emmc.c
+android-kernel-4.0.8/drivers/mmc/core/pwrseq_simple.c
+android-kernel-4.0.8/drivers/mmc/core/sd.c
+android-kernel-4.0.8/drivers/mmc/core/sdio.c
+android-kernel-4.0.8/drivers/mmc/core/sdio_io.c
+android-kernel-4.0.8/drivers/mmc/host/dw_mmc.c
+android-kernel-4.0.8/drivers/mmc/host/dw_mmc-exynos.c
+android-kernel-4.0.8/drivers/mmc/host/dw_mmc-rockchip.c
+android-kernel-4.0.8/drivers/mmc/host/mmci.c
+android-kernel-4.0.8/drivers/mmc/host/mmc_spi.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-acpi.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-bcm2835.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-bcm-kona.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-cns3xxx.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-dove.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-esdhc-imx.c
+android-kernel-4.0.8/drivers/mmc/host: sdhci-iproc.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-msm.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-of-arasan.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-of-esdhc.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-of-hlwd.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-pci.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-pci-data.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-pltfm.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-sirf.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-spear.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-st.c
+android-kernel-4.0.8/drivers/mmc/host/sdhci-tegra.c
+android-kernel-4.0.8/drivers/mmc/host/sh_mmcif.c
+android-kernel-4.0.8/drivers/mmc/host/sunxi-mmc.c
+android-kernel-4.0.8/drivers/mmc/host/wmt-sdmmc.c
+android-kernel-4.0.8/drivers/net/ppp: pppolac.c
+android-kernel-4.0.8/drivers/net/ppp: pppopns.c
+android-kernel-4.0.8/drivers/net/usb/usbnet.c
+android-kernel-4.0.8/drivers/net/wireless/ath/ath6kl/sdio.c
+android-kernel-4.0.8/drivers/net/wireless/ath/ath9k/mac.c
+android-kernel-4.0.8/drivers/net/wireless/brcm80211/brcmfmac/bcmsdh.c
+android-kernel-4.0.8/drivers/net/wireless/brcm80211/brcmfmac/cfg80211.c
+android-kernel-4.0.8/drivers/net/wireless/brcm80211/brcmfmac/chip.c
+android-kernel-4.0.8/drivers/net/wireless/brcm80211/brcmfmac/core.c
+android-kernel-4.0.8/drivers/net/wireless/brcm80211/brcmfmac/msgbuf.c
+android-kernel-4.0.8/drivers/net/wireless/brcm80211/brcmfmac/pcie.c
+android-kernel-4.0.8/drivers/net/wireless/brcm80211/brcmfmac/sdio.c
+android-kernel-4.0.8/drivers/net/wireless/ipw2x00/ipw2200.c
+android-kernel-4.0.8/drivers/net/wireless/mwifiex/main.c
+android-kernel-4.0.8/drivers/net/wireless: wl
+android-kernel-4.0.8/drivers/of/fdt.c
+android-kernel-4.0.8/drivers/platform/x86: lsrot.c
+android-kernel-4.0.8/drivers/platform/x86/sony-laptop.c
+android-kernel-4.0.8/drivers/platform/x86: surface_button.c
+android-kernel-4.0.8/drivers/pwm/core.c
+android-kernel-4.0.8/drivers/pwm: pwm-crc.c
+android-kernel-4.0.8/drivers/staging/android: alarm-dev.c
+android-kernel-4.0.8/drivers/staging/android/ashmem.c
+android-kernel-4.0.8/drivers/staging/android: efibc.c
+android-kernel-4.0.8/drivers/staging/android: logger.c
+android-kernel-4.0.8/drivers/staging/android/lowmemorykiller.c
+android-kernel-4.0.8/drivers/staging: rtl8723bs
+android-kernel-4.0.8/drivers: switch
+android-kernel-4.0.8/drivers/tty/vt/vt.c
+android-kernel-4.0.8/fs/eventpoll.c
+android-kernel-4.0.8/fs/ext4/ioctl.c
+android-kernel-4.0.8/fs/ext4/mballoc.c
+android-kernel-4.0.8/fs/fs-writeback.c
+android-kernel-4.0.8/fs/fuse/dev.c
+android-kernel-4.0.8/fs/proc/base.c
+android-kernel-4.0.8/fs/pstore/ram.c
+android-kernel-4.0.8/fs/select.c
+android-kernel-4.0.8/kernel/cpu.c
+android-kernel-4.0.8/kernel/fork.c
+android-kernel-4.0.8/kernel/power/console.c
+android-kernel-4.0.8/kernel/power/process.c
+android-kernel-4.0.8/kernel/power/qos.c
+android-kernel-4.0.8/kernel/power/suspend.c
+android-kernel-4.0.8/kernel/power: suspend_time.c
+android-kernel-4.0.8/kernel/power: wakeup_reason.c
+android-kernel-4.0.8/kernel/sysctl.c
+android-kernel-4.0.8/kernel/trace: gpu-traces.c
+android-kernel-4.0.8/MAINTAINERS
+android-kernel-4.0.8/mm/page_alloc.c
+android-kernel-4.0.8/mm/shmem.c
+android-kernel-4.0.8/mm/vmscan.c
+android-kernel-4.0.8/net/can/af_can.c
+android-kernel-4.0.8/net/ipv4: sysfs_net_ipv4.c
+android-kernel-4.0.8/net/rfkill/core.c
+android-kernel-4.0.8/security/commoncap.c
+android-kernel-4.0.8/security/selinux/hooks.c
+android-kernel-4.0.8/sound/pci/hda/patch_realtek.c
+android-kernel-4.0.8/sound/soc/intel: byt_bl_wm5102.c
+android-kernel-4.0.8/sound/soc/intel: ssp
+android-kernel-4.0.8/sound/soc/intel/sst-acpi.c

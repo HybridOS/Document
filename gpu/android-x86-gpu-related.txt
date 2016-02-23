@@ -1,0 +1,56 @@
+
+==============================
+Android-x86 ›
+Help Locating Recent Builds
+
+RECENT-BUILDS (pointers to locate)
+------------------------
+
+radeonsi
+
+   https://groups.google.com/forum/#!searchin/android-x86/radeonsi%7Csort:date
+
+mesa
+
+   https://groups.google.com/forum/#!searchin/android-x86/mesa%7Csort:date
+
+nouveau
+
+   https://groups.google.com/forum/#!searchin/android-x86/nouveau%7Csort:date
+
+asus T100
+
+   https://groups.google.com/forum/#!searchin/android-x86/t100|sort:date/android-x86/5TMhg_HLFzs/K6mAGaFN7MoJ
+
+   https://groups.google.com/forum/#!searchin/android-x86/Asus$20T100%7Csort:date
+
+base-builds-from-git
+
+     https://drive.google.com/folderview?id=0B2evBKvIpdYkfm1EdmFtUUc1QjA5dmlLMXlEaEJyQ29wc1VtbDRQa2YyOXlJdjZFUWRFckk&usp=sharing
+
+
+==============================
+
+Here's a Topic were we are trying to make radeonsi cards works (like yours):
+
+https://groups.google.com/forum/#!topic/android-x86/AayRmQiZAlw%5B101-125%5D
+
+Last *testing* ISO created was this:
+https://drive.google.com/file/d/0Bx12U5yGNcQCbE5NRUJpY1lyRFk/view?usp=sharing 
+
+
+
+
+android-x86-5.1_kernel_4.0.6_mesa_10.5.8_radeons
+
+https://drive.google.com/file/d/0Bx12U5yGNcQCbE5NRUJpY1lyRFk/view
+
+Tested on AMD Athlon 5350 APU Kabini  with Radeon R
+
+android_x86-4.4-r2-20150623.iso
+
+It boots live but mouse does not work
+
+android-x86-5.1_kernel_4.0.6_mesa_10.5.8_radeonsi_test_20150628.iso
+
+Live: Loop on initial screen "android"

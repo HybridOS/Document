@@ -1,0 +1,1 @@
+ repo forall -p -c git log android-6.0.0_r1..HEAD >../android-x86-6.0.log.txt

@@ -1,0 +1,43 @@
+﻿chromixium：
+1-在chromixium官方主页下载最新版镜像文件：http://chromixium.org/
+2-查看官方快速使用文档熟悉live系统内容（有条件课查看官方提供的安装视频，文档和视频链接均在官方主页上能够找到）。
+3-根据官方文档的指示一步一步制作USB或者DVD启动镜像进行安装。推荐使用USB进行安装，强烈建议使用官方文档内推荐的烧录软件进行USB启动器的制作，本人尝试过使用其他软件进行均未成功。
+4-制作好USB镜像后请找到官方快速使用文档中的安装向导文档链接并打开，根据向导进行安装。对于没有分区过的硬盘需要使用live系统中的分区软件进行分区，详见官方说明文档中的向导。
+5-由于官方文档基于相对老一点的版本制作，部分指南截图与下载到的最新live系统有一定的出入。根据本人所下载到的ISO而言，进入live系统后能够看到下方应用栏存在一个安装chromixium的应用，打开此应用按照引导即可进行安装。安装过程中安装程序会检测系统内是否存在能够识别的ubuntu系统（目前只成功识别过14.04和15.04），若存在建议选择与ubuntu系统共存的安装方法进行安装，安装向导与ubuntu系统类似，完成安装后重启即可通过ubuntu bootloader选择进入chromixium系统，并开始使用。
+
+solus
+1-在solus-project官方下载页上下载最新的solus系统镜像：https://solus-project.com/download/
+2-根据官方安装指南文档制作USB启动器：https://wiki.solus-project.com/Installation
+	在这里依然要强调的还是一定要使用官方指南文档中推荐的烧录软件进行USB启动器的制作，否则无法保证效果。本人完成安装所使用的是Rufus软件，其他推荐软件都可以通过官方提供的链接进行下载和使用方式的学习。
+3-进入live系统后能够在类似开始菜单的应用菜单中找到install指令，根据安装向导即可完成安装。对于未分区的磁盘处理方式与chromixium类似。另外solus并不会对计算机内的其他系统进行检测，请小心选择安装分区以免覆盖其它系统文件。
+4-重新启动后通过bootloader启动系统。
+
+注意事项：
+1-上述系统的USB启动器均不能够通过UEFI引导，请根据提示进入高级启动选项选择非UEFI引导方式进入live系统。
+2-chromixium的安装依赖于对Google账户的登录，可酌情使用vpn或hosts方法使用Google服务，否则很难保证安装成功和系统完整性。
+3-若更新后的官方指南文档与本指南存在出入，均以官方指南为准。
+
+solus部分软件安装：
+solus系统使用基于pisi的pkg管理工具eopkg，使用方式与pisi一致。本人通过一定的实际试验证实pisilife等用于pisi的包扩展方案均不可用于solus系统，solus系统的第三方程序仍主要来自solus-project Github页的3rdparty包中，详细请自行访问。
+https://github.com/solus-project/3rd-party（目前只有一些浏览器）
+
+solus安装chrome
+根据我们上面提到的第三方软件包，我们可以根据eopkg的使用方法得出安装chrome的指令。然而事实上chrome本身会由于证书问题无法正确安装，在此我们需要对安全性进行忽略来获取chrome安装包。并对其进行安装。具体指令如下：
+#包获取
+sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/web/browser/google-chrome-stable/pspec.xml;
+#进行安装
+sudo eopkg it google-chrome-*.eopkg;
+#删除安装包
+sudo rm google-chrome-*.eopkg
+注意，上述过程需要您的网络能够访问dl.google.com。否则无法获取chrome的安装包。
+安装完毕之后chrome便会出现在开始菜单中，即可进行使用。
+
+solus安装WPS office
+在solus系统运行wps需要有libpng12库的支持。首先可以根据以下代码来通过maxsoft脚本在系统中安装libpng12库。
+#安装系统支持
+sudo pisi it -c system.devel
+#安装libpng库
+curl http://vps.maxsoft.ro/solus/getlibpng12.sh | sudo bash
+安装完成后需要到http://wps-community.rog/downloads页面下载Linux绿色版（扩展名为tar.xz的版本）。
+下载好后解压到任意目录之后，即可通过使用终端运行wps目录下的et，wpp，wps分别进入wps表格，wps幻灯片和wps文档并进行使用。
+对于字体缺失的情况通过终端执行install_fonts即可安装所需字体。另外由于一些授权原因，有很多符号字体wps没有提供给Linux版本。反复遇到遇到符号字体缺失提示忽略即可

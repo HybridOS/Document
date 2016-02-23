@@ -1,0 +1,1 @@
+**Use openthos instead of Ubuntu on your laptop, you can edit documents, program, surf the Internet, watch movies, play games, and so on.**

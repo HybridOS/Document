@@ -1,0 +1,160 @@
+git log --pretty=format:"%h %ae"
+
+bdf7a59 cwhuang@linux.org.tw
+fe312c1 cwhuang@linux.org.tw
+474d164 cwhuang@linux.org.tw
+d694ab8 cwhuang@linux.org.tw
+e31b6b4 cwhuang@linux.org.tw
+add05e4 cwhuang@linux.org.tw
+4320059 cwhuang@linux.org.tw
+441a0ab cwhuang@linux.org.tw
+3551c51 cwhuang@linux.org.tw
+caaa8fb cwhuang@linux.org.tw
+c6da3a5 cwhuang@linux.org.tw
+56fccee cwhuang@linux.org.tw
+c60e107 cwhuang@linux.org.tw
+808f13c cwhuang@linux.org.tw
+a2c27b6 cwhuang@linux.org.tw
+c7eddca cwhuang@linux.org.tw
+6822e68 cwhuang@linux.org.tw
+4e38062 cwhuang@linux.org.tw
+231b616 cwhuang@linux.org.tw
+c24ef62 cwhuang@linux.org.tw
+ccc9b65 cwhuang@linux.org.tw
+5274cab cwhuang@linux.org.tw
+679a252 cwhuang@linux.org.tw
+dbcd51e cwhuang@linux.org.tw
+7cd16c0 cwhuang@linux.org.tw
+a1138d3 cwhuang@linux.org.tw
+02d57d9 cwhuang@linux.org.tw
+facc2de cwhuang@linux.org.tw
+ce65829 cwhuang@linux.org.tw
+33c9115 cwhuang@linux.org.tw
+58f2b0f cwhuang@linux.org.tw
+5354d03 cwhuang@linux.org.tw
+eb649a8 cwhuang@linux.org.tw
+c790ad3 cwhuang@linux.org.tw
+
+
+
+
+a2c27b6
+commit a2c27b6fcaad51114faffe4284098dd0a4764b45
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Tue Apr 14 01:54:17 2015 +0800
+
+    android-x86: add defconfig for android-x86 and android-x86_64
+
+
+
+
+c24ef62
+commit c24ef62f55362ef39eab5a91ea3f18c68f0b2faa
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Fri Dec 12 23:42:38 2014 +0800
+
+    mm: vmscan: Add a debug file for shrinkers
+    
+    This patch adds a debugfs file called "shrinker" when read this calls
+    all the shrinkers in the system with nr_to_scan set to zero and prints
+    the result.  These results are the number of objects the shrinkers have
+    available and can thus be used an indication of the total memory
+    that would be availble to the system if a shrink occurred.
+
+
+
+
+
+ccc9b65
+commit ccc9b65eabebc9fccd0354186b43cd5c8fbd04ae
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Fri Apr 3 02:41:10 2015 +0800
+
+    android: support 32-bit binder in 64-bit kernel
+
+diff --git a/drivers/android/Kconfig b/drivers/android/Kconfig
+index bdfc6c6..7ad1431 100644
+--- a/drivers/android/Kconfig
++++ b/drivers/android/Kconfig
+@@ -20,8 +20,8 @@ config ANDROID_BINDER_IPC
+          between said processes.
+ 
+ config ANDROID_BINDER_IPC_32BIT
+-       bool
+-       depends on !64BIT && ANDROID_BINDER_IPC
++       bool "Use 32-bit Binder Driver"
++       depends on ANDROID_BINDER_IPC
+        default y
+        ---help---
+          The Binder API has been changed to support both 32 and 64bit
+
+
+
+
+5274cab
+commit 5274cab146af9a41d053a1797b109a52be5f4d9f
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Sun Feb 8 23:39:05 2015 +0800
+
+    x86/intel: force tsc to be reliable on Baytrail
+
+diff --git a/arch/x86/kernel/cpu/intel.c b/arch/x86/kernel/cpu/intel.c
+index 50163fa..ae2ab91 100644
+--- a/arch/x86/kernel/cpu/intel.c
++++ b/arch/x86/kernel/cpu/intel.c
+@@ -95,6 +95,8 @@ static void early_init_intel(struct cpuinfo_x86 *c)
+        /* Penwell and Cloverview have the TSC which doesn't sleep on S3 */
+        if (c->x86 == 6) {
+                switch (c->x86_model) {
++               case 0x37:      /* ValleyView */
++                       set_cpu_cap(c, X86_FEATURE_TSC_RELIABLE);
+                case 0x27:      /* Penwell */
+                case 0x35:      /* Cloverview */
+                        set_cpu_cap(c, X86_FEATURE_NONSTOP_TSC_S3);
+
+
+
+dbcd51e
+commit dbcd51ed226feb94f794a698937bc072933d1604
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Tue Dec 2 01:03:18 2014 +0800
+
+    binder: correct ptr handling
+    
+    The bug occurs if CONFIG_ANDROID_BINDER_IPC_32BIT
+    is not defined in 32-bit kernel.
+
+
+
+7cd16c0
+commit 7cd16c015cef96ed25634d696e56a0b709222ef4
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Mon Nov 17 20:14:41 2014 +0800
+
+    android-x86: add an empty Android.mk
+    
+    It prevents findleaves.py from searching into the subdirectories.
+
+
+02d57d9
+commit 02d57d91aa55bc6e47f29c0622f2f77de0d86b3d
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Fri Sep 5 21:07:38 2014 +0800
+
+    HACK: drm: disable GPU authentication
+
+
+
+facc2de
+commit facc2de8d9c835519f25ea6611bc7a4115efdecb
+Author: Chih-Wei Huang <cwhuang@linux.org.tw>
+Date:   Fri Aug 8 19:41:54 2014 +0000
+
+    HID: ntrig: revert to older version
+    
+    It is said the version works better for android-x86.
+    It's provided by Yo Abe <abe.geel@gmail.com>.
+
+
+
+

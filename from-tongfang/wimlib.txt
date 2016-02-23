@@ -1,0 +1,52 @@
+http://wimlib.net/ 
+ 
+Build for i386 
+./configure --enable-static --enable-shared=no 
+make 
+ 
+安装到android x86中 
+wimlib-imagex  ->  /system/xbin/ 
+chown root.aid_shell wimlib-imagex 
+ 
+依赖文件 
+        libxml2.so.2 => /usr/lib/i386-linux-gnu/libxml2.so.2 (0xb75aa000) 
+        libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xb758f000) 
+        libntfs-3g.so.852 => /lib/i386-linux-gnu/libntfs-3g.so.852 (0xb752a000) 
+        libfuse.so.2 => /lib/i386-linux-gnu/libfuse.so.2 (0xb74f0000) 
+        libattr.so.1 => /lib/i386-linux-gnu/libattr.so.1 (0xb74ea000) 
+        librt.so.1 => /lib/i386-linux-gnu/librt.so.1 (0xb74e1000) 
+        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7370000) 
+        libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xb736a000) 
+        libz.so.1 => /lib/i386-linux-gnu/libz.so.1 (0xb734d000) 
+        liblzma.so.5 => /lib/i386-linux-gnu/liblzma.so.5 (0xb7324000) 
+        libm.so.6 => /lib/i386-linux-gnu/libm.so.6 (0xb72df000) 
+        /lib/ld-linux.so.2 (0xb773c000) 
+这些全部复制到 
+/system/lib/下 
+ 
+使用solid方式压缩的映像(ESD)会更节省地方 
+ESD archives are WIM archives that use solid-mode LZMS compression, and so usually have a smaller size than regular WIM archives. However, Microsoft sometimes distributes ESD archives in (partially) encrypted form. wimlib cannot decrypt such archives by itself.  
+ 
+windows中创建solid压缩的esd，需要使用 
+dism /export-image /sourceimagefile:e:\test.wim /sourceindex:1 /destinationimagefile:f:\lf-office.esd /compress:recovery 
+ 
+动态捕获当前os的镜像 
+在当前windows下，通过卷影复制的方式完成用户当前操作环境的捕获（支持增量方式） 
+  
+1.创建volume shadow copy 
+【vb script方式】 
+http://serverfault.com/questions/193032/live-wim-image-capture 
+【powershell方式】 
+https://msdn.microsoft.com/zh-cn/vsto/aa389391?f=255&MSPPError=-2147217396 
+  
+2.使用dism捕获镜像，举例： 
+dism /capture-image /imagefile=e:\test.wim /capturedir=\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy3\\ /name=test 
+初次建立或者覆盖用/capture-image之后增量备份用/append-image 
+  
+3.删除volume shadow copy 
+http://www.msfn.org/board/topic/121316-running-imagex-from-vbscript/ 
+  
+  
+捕获的wim文件，可以用于恢复操作系统分区，也可以单独在windows和linux中mount，便于用户查找恢复个别文件，append-image方式是自动去重的。 
+甚至，如果加上wimboot选项，这个wim文件是可以直接在EFI的bootloader中引导的，非常强大。 
+ 

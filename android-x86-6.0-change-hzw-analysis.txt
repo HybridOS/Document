@@ -1,0 +1,44 @@
+
+
+project device/generic/common
+==============================
+packages.mk
+----
+增加了v86d, 而v86d在 external/v86d中，
+---
+v86d provides a backend for kernel drivers that need to execute
+x86 BIOS code.  The code is executed in a controlled environment
+and the results are passed back to the kernel via the netlink
+interface.
+
+device/generic/common/nativebridge
+------
+是用来与intel的houdini进行交互的
+源码
+src/libnb.cpp
+
+
+
+project device/generic/x86/
+==============================
+注意　 BoardConfig.mk的变化
+
+
+
+project device/generic/x86_64/
+=======================================
+注意　 BoardConfig.mk的变化
+增加了　android_x86_64.mk
+
+
+project external/drm_gralloc/
+======================================
+
+
+project external/libdrm/
+======================================
+
+
+project hardware/libhardware/
+===========================
+与gralloc有关
