@@ -1,1 +1,1 @@
-**Welcome to [EmindSoft Android PC OS](https://github.com/HybridOS/Document/wiki)**
+**Welcome to [Andriod-x86](https://github.com/HybridOS/Document/wiki)**
