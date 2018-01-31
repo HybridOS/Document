@@ -53,3 +53,5 @@ Listening on port 5039
 
 链接:http://blog.dornea.nu/2015/07/01/debugging-android-native-shared-libraries/
 
+5. [GDB-Commands](http://www.yolinux.com/TUTORIALS/GDB-Commands.html)
+
